@@ -2,11 +2,11 @@
 
 This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 
-Tired of your favorite GTK applications suddenly looking like plain GNOME? 
+- Tired of your favorite GTK applications looking like `libadwaita`? We've got cross-platform xapps from Linux Mint adapted to GUIX. 
+- Jealous of that Ubuntu audio indicator with music player controls?
+- Running away from rust? MATE is almost pure C.
 
-Jealous of that Ubuntu audio indicator with music player controls?
-
-Running away from rust? MATE is almost pure C.
+Return to the comfy *traditional* desktop everyone loved in the 2000's 
 
 _This channel is still experimental. You can see package progress [here](https://codeberg.org/guix-mate/-/projects/13979)_
 
@@ -19,7 +19,7 @@ This channel is not ready to be used. Grab an issue if you wish to help.
 - Rival Ubuntu MATE on software available for the MATE desktop.
 - Patch upstream sources to remove `apt/dpkg` specific behavior
 - Updates at least once per week/month, there's much room for improvement
-- Rebrand if possible to improve user experience
+- Rebrand if possible to improve user experience and integration with GUIX
 
 ## Available software
 
