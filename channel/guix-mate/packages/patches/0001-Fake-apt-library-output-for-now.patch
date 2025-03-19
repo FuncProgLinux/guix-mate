@@ -1,0 +1,54 @@
+From 2a101718dd4c05ec63014d5fb593bc91ccea09e4 Mon Sep 17 00:00:00 2001
+From: FuncProgLinux <fplinux@tuta.io>
+Date: Mon, 17 Mar 2025 21:27:58 -0600
+Subject: [PATCH] Fake apt library output for now
+
+---
+ .../mintMenu/plugins/get_apt_cache.py         | 24 +++++++++----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/usr/lib/linuxmint/mintMenu/plugins/get_apt_cache.py b/usr/lib/linuxmint/mintMenu/plugins/get_apt_cache.py
+index 53850f5..06e5f20 100755
+--- a/usr/lib/linuxmint/mintMenu/plugins/get_apt_cache.py
++++ b/usr/lib/linuxmint/mintMenu/plugins/get_apt_cache.py
+@@ -2,26 +2,26 @@
+ 
+ import sys
+ 
+-import apt_pkg
+-
+ if len(sys.argv) != 2:
+     sys.exit(1)
+ try:
+-    apt_pkg.init()
+-    cache = apt_pkg.Cache()
+-    package_records = apt_pkg.PackageRecords(cache)
++    # Hardcoded package data
++    hardcoded_packages = {
++        'Emacs': ('The extensible, cusomizable, self-documenting text editor', 'GNU Emacs is an extensible and highly customizable text editor'),
++        'IceCat': ('Entirely free browser derived from Mozilla Firefox',
++                   'IceCat is the GNU version of the Firefox'),
++        'IceDove': ('Rebranded Mozilla Thunderbird email client',
++                    'This package provides an email client built based on Mozilla Thunderbird')
++    }
+     known_packages = set()
+     with open(sys.argv[1], "w") as f:
+-        for pkg in cache.packages:
+-            if pkg.selected_state or not pkg.version_list or pkg.name in known_packages:
++        for name, (summary, description) in hardcoded_packages.items():
++            if name in known_packages:
+                 continue
+-            name = pkg.name
+-            package_records.lookup(pkg.version_list.pop(0).translated_description.file_list.pop(0))
+-            summary = package_records.short_desc
+-            description = package_records.long_desc.replace(summary + "\n ", "").replace("\n .\n ", "~~~").replace("\n", "")
++            description = description.replace(summary + "\n ", "").replace("\n .\n ", "~~~").replace("\n", "")
+             f.write("CACHE###%s###%s###%s\n" % (name, summary, description))
+             known_packages.add(name)
+ except Exception as e:
+     print("ERROR###ERROR###ERROR###ERROR")
+-    print(e)
++    (e)
+     sys.exit(1)
+-- 
+2.48.1
