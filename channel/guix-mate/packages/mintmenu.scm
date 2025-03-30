@@ -1,4 +1,4 @@
-(define-module (guix-mate packages mint-menu)
+(define-module (guix-mate packages mintmenu)
   #:use-module (guix)
   #:use-module (guix gexp)
   #:use-module (guix build utils)
@@ -18,9 +18,9 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-build))
 
-(define-public mint-menu
+(define-public mintmenu
   (package
-    (name "mint-menu")
+    (name "mintmenu")
     (version "6.2.0")
     (source
      (origin
