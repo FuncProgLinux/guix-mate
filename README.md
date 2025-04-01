@@ -42,6 +42,8 @@ The following list shows the available packages you can install + the packages w
 - [ ] [`pix`](https://github.com/linuxmint/pix)
 - [ ] [`lightdm-settings`](https://github.com/linuxmint/lightdm-settings) (Lightdm settings UI)
 - [ ] `mint-themes` (The whole bundle of mint-x mint-y and mint-l both GTK + Icon themes)
+- [ ] `xviewer-plugins`
+
 
 ### Ubuntu MATE
 - [ ] Yaru MATE themes by default
