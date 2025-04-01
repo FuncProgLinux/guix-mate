@@ -30,6 +30,7 @@ The following list shows the available packages you can install + the packages w
 - [ ] `mintMenu` (The original `advanced-mate-menu`)
 - [x] `python3-xapp` (Python bindings for libxapp)
 - [x] `xed` (Pluma fork, more complete than pluma, cross platform between XFCE/MATE/Cinnamon)
+  - ![already supported](./assets/xed.png)
 - [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp) Make Cinnamon, MATE & XFCE compatible with desktop portals.
 - [ ] [`xviewer`](https://github.com/linuxmint/xviewer) (xapp image viewer, looks the same on XFCE/MATE/Cinnamon)
 - [ ] [`sticky`](https://github.com/linuxmint/sticky) (Note taking application.)
