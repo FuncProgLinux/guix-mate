@@ -29,7 +29,7 @@ The following list shows the available packages you can install + the packages w
 - [ ] `mintdesktop` (The original mate-tweak)
 - [ ] `mintMenu` (The original `advanced-mate-menu`)
 - [x] `python3-xapp` (Python bindings for libxapp)
-- [ ] `xed` (Pluma fork, more complete than pluma, cross platform between XFCE/MATE/Cinnamon)
+- [x] `xed` (Pluma fork, more complete than pluma, cross platform between XFCE/MATE/Cinnamon)
 - [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp) Make Cinnamon, MATE & XFCE compatible with desktop portals.
 - [ ] [`xviewer`](https://github.com/linuxmint/xviewer) (xapp image viewer, looks the same on XFCE/MATE/Cinnamon)
 - [ ] [`sticky`](https://github.com/linuxmint/sticky) (Note taking application.)
@@ -61,3 +61,4 @@ The following list shows the available packages you can install + the packages w
 
 ### Ubuntu MATE
 - [`mate-optimus`](https://github.com/ubuntu-mate/mate-optimus) only useful for proprietary drivers.
+
