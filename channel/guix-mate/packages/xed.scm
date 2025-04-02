@@ -42,8 +42,13 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "1ma8gfirrkjvlg29cnk7slipvsc65l17qw9kfn8a16sgm6ihw81d"))))
-    (native-inputs `(("gettext" ,gettext-minimal)
+    (native-inputs `(("gettext-minimal" ,gettext-minimal)
+                     ("gobject-introspection" ,gobject-introspection)
+                     ("itstool" ,itstool)
+                     ("desktop-file-utils" ,desktop-file-utils)
                      ("gspell" ,gspell)
+                     ("gtk:bin" ,gtk)
+                     ("glib:bin" ,glib)
                      ("gtk-doc" ,gtk-doc/stable)
                      ("intltool" ,intltool)
                      ;; xed still uses the 1.x version of libpeas
@@ -65,15 +70,11 @@
                   libgnomekbd
                   libxkbfile
                   python-3
-                  gobject-introspection
-                  desktop-file-utils
-                  (list gtk "bin")
                   gdk-pixbuf
                   libx11
                   libpeas
                   libsm
                   libxml2
-                  itstool
                   libice
                   packagekit
                   pango
