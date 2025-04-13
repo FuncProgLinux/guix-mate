@@ -33,6 +33,7 @@ The following list shows the available packages you can install + the packages w
   - ![already supported](./assets/xed.png)
 - [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp) Make Cinnamon, MATE & XFCE compatible with desktop portals.
 - [ ] [`xviewer`](https://github.com/linuxmint/xviewer) (xapp image viewer, looks the same on XFCE/MATE/Cinnamon)
+  - **[WIP]: Taking longer than expected because xviewer requires a newer `libxapp` which I don't know how to update manually**
 - [ ] [`sticky`](https://github.com/linuxmint/sticky) (Note taking application.)
 - [ ] [`xapp-thumbnailers`](https://github.com/linuxmint/xapp-thumbnailers) (Thumbnail generators)
 - [ ] [`webapp-manager`](https://github.com/linuxmint/webapp-manager/tree/master)
