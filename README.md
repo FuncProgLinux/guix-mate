@@ -14,6 +14,12 @@ _This channel is still experimental. You can see package progress [here](https:/
 
 This channel is not ready to be used. Grab an issue if you wish to help.
 
+## Upstreamed packages
+
+The following packages are now part of GNU GUIX and are no longer present in this repository:
+
+- `python-xapp`: Python bindings for `libxapp`
+
 ## Goals
 
 - Rival Ubuntu MATE on software available for the MATE desktop.
@@ -28,7 +34,6 @@ The following list shows the available packages you can install + the packages w
 ### Mint
 - [ ] `mintdesktop` (The original mate-tweak)
 - [ ] `mintMenu` (The original `advanced-mate-menu`)
-- [x] `python3-xapp` (Python bindings for libxapp)
 - [x] `xed` (Pluma fork, more complete than pluma, cross platform between XFCE/MATE/Cinnamon)
   - ![already supported](./assets/xed.png)
 - [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp) Make Cinnamon, MATE & XFCE compatible with desktop portals.
