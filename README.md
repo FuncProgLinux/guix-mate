@@ -26,6 +26,7 @@ The following packages are now part of GNU GUIX and are no longer present in thi
 - Patch upstream sources to remove `apt/dpkg` specific behavior
 - Updates at least once per week/month, there's much room for improvement
 - Rebrand if possible to improve user experience and integration with GUIX
+- Upstream packages to GNU Guix to benefit trisquel users migrating
 
 ## Available software
 
