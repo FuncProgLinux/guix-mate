@@ -14,6 +14,36 @@ _This channel is still experimental. You can see package progress [here](https:/
 
 This channel is not ready to be used. Grab an issue if you wish to help.
 
+## Workflow
+
+Contributing to the existing Guix distribution is our primary goal. However, you may use this channel in case you want to test the packages before we present them to the Guix developers. If any of our packages doesn't get into the main Guix branch, we will still provide support for
+it from here:
+
+Here's the mermaid diagram of the current workflow:
+
+```mermaid
+---
+title: GUIX MATE Development Cycle
+displayMode: compact
+config:
+  theme: dark
+flowchart:
+    useWidth: 400
+    compact: true
+---
+graph TD
+    subgraph Guix MATE
+        A[[Package Development]] --> B{Initial Testing};
+        B -- Passes --> C[[Usable Package]];
+        B -- Fails --> A;
+        F --> A;
+    end
+
+    C --> D{Attempt Upstream Contribution};
+    D -- Upstream Accepts --> E[[Accepted in Official Guix Upstream]];
+    D -- Upstream Rejects (for any reason) --> F[[Rejected by Upstream & Maintained in Guix MATE]];
+```
+
 ## Upstreamed packages
 
 The following packages are now part of GNU GUIX and are no longer present in this repository:
