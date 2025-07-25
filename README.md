@@ -79,6 +79,15 @@ The following list shows the available packages you can install + the packages w
 - [ ] [`pix`](https://github.com/linuxmint/pix)
 - [ ] [`lightdm-settings`](https://github.com/linuxmint/lightdm-settings) (Lightdm settings UI)
 - [ ] `mint-themes` (The whole bundle of mint-x mint-y and mint-l both GTK + Icon themes)
+  - [ ] `mint-x`
+    - [ ] `mint-x-icons`
+    - [ ] `mint-x-gtk`
+  - [ ] `mint-y`
+    - [ ] `mint-y-icons`
+    - [ ] `mint-y-gtk`
+  - [ ] `mint-l`
+    - [ ] `mint-l-icons`
+    - [ ] `mint-l-gtk`
 - [ ] `xviewer-plugins`
 
 
