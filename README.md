@@ -2,13 +2,15 @@
 
 This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 
-- Tired of your favorite GTK applications looking like `libadwaita`? We've got cross-platform xapps from Linux Mint adapted to GUIX. 
+- Tired of your favorite GTK applications looking like `libadwaita`? We've got
+  cross-platform xapps from Linux Mint adapted to GUIX.
 - Jealous of that Ubuntu audio indicator with music player controls?
 - Running away from rust? MATE is almost pure C.
 
-Return to the comfy *traditional* desktop everyone loved in the 2000's 
+Return to the comfy _traditional_ desktop everyone loved in the 2000's
 
-_This channel is still experimental. You can see package progress [here](https://codeberg.org/guix-mate/-/projects/13979)_
+_This channel is still experimental. You can see package progress
+[here](https://codeberg.org/guix-mate/-/projects/13979)_
 
 ## Usage
 
@@ -16,7 +18,8 @@ This channel is not ready to be used. Grab an issue if you wish to help.
 
 ## Upstreamed packages
 
-The following packages are now part of GNU GUIX and are no longer present in this repository:
+The following packages are now part of GNU GUIX and are no longer present in
+this repository:
 
 - `python-xapp`: Python bindings for `libxapp`
 
@@ -28,27 +31,40 @@ The following packages are now part of GNU GUIX and are no longer present in thi
 - Rebrand if possible to improve user experience and integration with GUIX
 - Upstream packages to GNU Guix to benefit trisquel users migrating
 
+## FAQ
+
+Please read [FAQ.md](FAQ.md)
+
 ## Available software
 
-The following list shows the available packages you can install + the packages we wish to maintain in this repository:
+The following list shows the available packages you can install + the packages
+we wish to maintain in this repository:
 
 ### Mint
+
 - [ ] `mintdesktop` (The original mate-tweak)
 - [ ] `mintMenu` (The original `advanced-mate-menu`)
-- [x] `xed` (Pluma fork, more complete than pluma, cross platform between XFCE/MATE/Cinnamon)
+- [x] `xed` (Pluma fork, more complete than pluma, cross platform between
+      XFCE/MATE/Cinnamon)
   - ![already supported](./.repo-assets/xed.png)
-- [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp) Make Cinnamon, MATE & XFCE compatible with desktop portals.
-- [ ] [`xviewer`](https://github.com/linuxmint/xviewer) (xapp image viewer, looks the same on XFCE/MATE/Cinnamon)
-  - **[WIP]: Taking longer than expected because xviewer requires a newer `libxapp` which I don't know how to update manually**
+- [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp)
+      Make Cinnamon, MATE & XFCE compatible with desktop portals.
+- [ ] [`xviewer`](https://github.com/linuxmint/xviewer) (xapp image viewer,
+      looks the same on XFCE/MATE/Cinnamon)
+  - **[WIP]: Taking longer than expected because xviewer requires a newer
+    `libxapp` which I don't know how to update manually**
 - [ ] [`sticky`](https://github.com/linuxmint/sticky) (Note taking application.)
-- [ ] [`xapp-thumbnailers`](https://github.com/linuxmint/xapp-thumbnailers) (Thumbnail generators)
+- [ ] [`xapp-thumbnailers`](https://github.com/linuxmint/xapp-thumbnailers)
+      (Thumbnail generators)
 - [ ] [`webapp-manager`](https://github.com/linuxmint/webapp-manager/tree/master)
 - [ ] [`warpinator`](https://github.com/linuxmint/warpinator)
-- [ ] [`xreader`](https://github.com/linuxmint/xreader) 
+- [ ] [`xreader`](https://github.com/linuxmint/xreader)
 - [ ] [`timeshift`](https://github.com/linuxmint/timeshift)
 - [ ] [`pix`](https://github.com/linuxmint/pix)
-- [ ] [`lightdm-settings`](https://github.com/linuxmint/lightdm-settings) (Lightdm settings UI)
-- [ ] `mint-themes` (The whole bundle of mint-x mint-y and mint-l both GTK + Icon themes)
+- [ ] [`lightdm-settings`](https://github.com/linuxmint/lightdm-settings)
+      (Lightdm settings UI)
+- [ ] `mint-themes` (The whole bundle of mint-x mint-y and mint-l both GTK +
+      Icon themes)
   - [ ] `mint-x`
     - [x] `mint-x-icons`
     - [ ] `mint-x-gtk`
@@ -60,25 +76,30 @@ The following list shows the available packages you can install + the packages w
     - [ ] `mint-l-gtk`
 - [ ] `xviewer-plugins`
 
-
 ### Ubuntu MATE
-- [ ] Yaru MATE themes by default
+
+- [x] Yaru MATE themes by default (Already in GUIX)
 - [ ] `mate-hud` with `rofi`
 - [ ] `mate-dock-applet`
 - [ ] `indicator-emojitwo`
 - [ ] Ayatana indicators
-- [ ] `brisk-menu` (It has a memory leak and hasn't been updated in 4 years (nor is it stable). Seems to work fine on latest ubuntu mate)
+- [ ] `brisk-menu` (It has a memory leak and hasn't been updated in 4 years (nor
+      is it stable). Seems to work fine on latest ubuntu mate)
 - [ ] `ubuntu-mate-artwork` (Wallpapers, icons and themes)
 - [ ] [`mate-window-applets`](https://github.com/ubuntu-mate/mate-window-applets)
 - [ ] Plank
 
 ### Trisquel
+
 - [ ] Trisquel Themes (greybird?)
 - [ ] Trisquel Icons (subsitute trisquel logo for GUIX logo by luis felipe)
-- [ ] Package abrowser (most of it's installation is rebranding only in the Debian package. Some way to avoid using a proprietary channel is greatly appreciated)
+- [ ] Package abrowser (most of it's installation is rebranding only in the
+      Debian package. Some way to avoid using a proprietary channel is greatly
+      appreciated)
 
 ## Excluded software
 
 ### Ubuntu MATE
-- [`mate-optimus`](https://github.com/ubuntu-mate/mate-optimus) only useful for proprietary drivers.
 
+- [`mate-optimus`](https://github.com/ubuntu-mate/mate-optimus) only useful for
+  proprietary drivers.
