@@ -1,4 +1,4 @@
-(define-module (guix-mate packages mint-x-icon-theme)
+(define-module (guix-mate packages mint-icons)
   #:use-module (guix)
   #:use-module (guix gexp)
   #:use-module (guix build utils)
@@ -7,6 +7,7 @@
   #:use-module (guix build-system copy)
   #:use-module (guix git-download))
 
+;; Mint-X is the base for both Mint-Y and Mint-L themes.
 (define-public mint-x-icon-theme
   (package
     (name "mint-x-icon-theme")
