@@ -69,10 +69,10 @@ we wish to maintain in this repository:
     - [x] `mint-x-icons`
     - [ ] `mint-x-gtk`
   - [ ] `mint-y`
-    - [ ] `mint-y-icons`
+    - [x] `mint-y-icons`
     - [ ] `mint-y-gtk`
   - [ ] `mint-l`
-    - [ ] `mint-l-icons`
+    - [x] `mint-l-icons`
     - [ ] `mint-l-gtk`
 - [ ] `xviewer-plugins`
 
