@@ -47,10 +47,8 @@
      `(#:install-plan `(("usr/share/icons" "share/icons"))))
     (home-page "https://github.com/linuxmint/mint-y-icons")
     (synopsis "The Mint-Y icon theme")
-    (description
-     "A flat, colorful, and modern theme based on Paper and Moka.")
-    (license (list license:gpl3+
-                   license:cc-by-sa4.0))))
+    (description "A flat, colorful, and modern theme based on Paper and Moka.")
+    (license (list license:gpl3+ license:cc-by-sa4.0))))
 
 (define-public mint-l-icon-theme
   (package
@@ -70,9 +68,6 @@
      `(#:install-plan `(("usr/share/icons" "share/icons"))))
     (home-page "https://github.com/linuxmint/mint-l-icons")
     (synopsis "Mint-L icon theme")
-    (description
-     "A flat, colorful, and modern theme based on Paper and Moka.")
-    (license (list license:gpl3+
-                   license:cc-by-sa4.0))))
-
+    (description "A flat, colorful, and modern theme based on Paper and Moka.")
+    (license (list license:gpl3+ license:cc-by-sa4.0))))
 

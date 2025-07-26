@@ -32,8 +32,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32 "13dsiqjsc1573s11r02cp6wlnb9cqlmqaz3nm6hvimbplk7sl2kr"))))
-    (native-inputs (list python-3 intltool libxapp glib
-                         gobject-introspection))
+    (native-inputs (list python-3 intltool libxapp glib gobject-introspection))
     (propagated-inputs (list python-configobj
                              python-pygobject
                              python-distutils-extra
@@ -83,7 +82,7 @@
       #~(modify-phases %standard-phases
           (add-after 'unpack 'fixup-paths
             (lambda _
-
+              
               (define* (patch-bash-shebangs #:key (file ""))
                 (substitute* file
                   (("#!/bin/bash")
@@ -116,7 +115,6 @@
                 (patch-usrbin-to-bin #:file file)
                 (patch-usrshare-to-share #:file file))
 
-              
               (patch-bash-shebangs #:file "usr/bin/compiz-reset-profile")
               (patch-usr-to-guix #:file "usr/bin/compiz-reset-profile")
 

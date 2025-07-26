@@ -8,6 +8,5 @@
                                                         "perl"
                                                         "emacs-evil"))
                              (package->development-manifest (specification->package
-                                                             "git"
-                                                             "guile"
+                                                             "git" "guile"
                                                              "guile-colorized"))))
