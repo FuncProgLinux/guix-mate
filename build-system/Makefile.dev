@@ -1,0 +1,32 @@
+# -*- mode: makefile-gmake; -*-
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright © 2024-2025 Urutau-Ltd <softwarelibre@urutau-ltd.org>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+# The packages to load for the Arei Scheme IDE
+SCHEME_ENV_PKGS="guile-next guile-ares-rs"
+
+# The location of the manifest file for this project
+DEV_ENV_MANIFEST="manifest.scm"
+
+.PHONY: nrepl
+nrepl: ## Starts nrepl-server for Emacs Arei
+	@echo "==> [GUIX-MATE/DEV]: Starting NREPL for Arei to listen..."
+	@guix shell $(SCHEME_ENV_PKGS) -- \
+	guile -c '((@ (ares server) run-nrepl-server))'
+
+dev: ## Starts a development guix shell for this channel
+	@echo "==> [GUIX-MATE/DEV]: Spinning up a development environment..."
+	@guix shell -m $(DEV_ENV_MANIFEST)
