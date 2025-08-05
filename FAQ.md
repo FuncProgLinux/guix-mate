@@ -15,3 +15,9 @@ Please try rebuilding the package on your own checkout or clone the source file
 to invoke `guix package -f <path_to_your_scm_file>` and open an issue with the
 build logs in **THIS CHANNEL**. That way we can help you with debugging or
 concluding if this is a bug of ours or an upstream bug.
+
+3. Why are `mint-cursors` missing?
+
+The `mint-cursor-themes` package was skipped because it contains the Bibata
+cursor theme which is already present in GNU Guix. The other cursors don't
+appear to be important whatsoever, so, that particular package was skipped.

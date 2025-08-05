@@ -3,7 +3,9 @@
      (tab-width   .  8)))
  (scheme-mode
   .
-  ((indent-tabs-mode . nil)))
+  ((indent-tabs-mode . nil)
+   (geiser-guile-binary . ("guile"))
+   (geiser-insert-actual-lambda . nil)))
  (makefile-gmake-mode
   .
   ((indent-tabs-mode . t)

@@ -22,6 +22,7 @@ The following packages are now part of GNU GUIX and are no longer present in
 this repository:
 
 - `python-xapp`: Python bindings for `libxapp`
+- `mint-icon-themes`: [IN REVIEW] Linux Mint Icon themes
 
 ## Goals
 
@@ -83,8 +84,8 @@ we wish to maintain in this repository:
 - [ ] `mate-dock-applet`
 - [ ] `indicator-emojitwo`
 - [ ] Ayatana indicators
-- [ ] `brisk-menu` (It has a memory leak and hasn't been updated in 4 years (nor
-      is it stable). Seems to work fine on latest ubuntu mate)
+- [x] `brisk-menu` (Our
+      [fork of Brisk Menu](https://codeberg.org/guix-mate/brisk-menu-guix))
 - [ ] `ubuntu-mate-artwork` (Wallpapers, icons and themes)
 - [ ] [`mate-window-applets`](https://github.com/ubuntu-mate/mate-window-applets)
 - [ ] Plank
