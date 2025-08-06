@@ -10,7 +10,7 @@ This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 Return to the comfy _traditional_ desktop everyone loved in the 2000's
 
 _This channel is still experimental. You can see package progress
-[here](https://codeberg.org/guix-mate/-/projects/13979)_
+[here](https://codeberg.org/guix-mate/guix-mate/issues)_
 
 ## Usage
 
@@ -87,7 +87,7 @@ we wish to maintain in this repository:
 - [x] `brisk-menu` (Our
       [fork of Brisk Menu](https://codeberg.org/guix-mate/brisk-menu-guix))
 - [ ] `ubuntu-mate-artwork` (Wallpapers, icons and themes)
-- [ ] [`mate-window-applets`](https://github.com/ubuntu-mate/mate-window-applets)
+- [x] [`mate-window-applets`](https://github.com/ubuntu-mate/mate-window-applets)
 - [ ] Plank
 
 ### Trisquel
