@@ -1,4 +1,4 @@
-(define-module (guix-mate packages brisk-menu)
+(define-module (guix-mate packages mate-window-applets)
   #:use-module (guix)
   #:use-module (guix gexp)
   #:use-module (guix build utils)
@@ -17,20 +17,20 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg))
 
-(define-public brisk-menu
+(define-public mate-window-applets
   (package
-    (name "brisk-menu")
-    (version "0.6.4")
+    (name "mate-window-applets")
+    (version "21.04.0")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://codeberg.org/guix-mate/brisk-menu-guix")
+             (url "https://github.com/ubuntu-mate/mate-window-applets")
              (recursive? #t)
-             (commit "v0.6.4")))
+             (commit "21.04.0")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1dk1pyay6zz9xdnilchswmvy2nrdgrqfcw7xbz8af48wqivrhm60"))))
+        (base32 "07h7vzy4qa5cspgas4ya7f0g9vn9nn09aa2m75clfg8a07n23znw"))))
     (build-system meson-build-system)
     (arguments
      '(#:glib-or-gtk? #t))
@@ -38,7 +38,9 @@
                          intltool
                          itstool
                          gobject-introspection
+                         vala
                          libxml2
+                         libwnck
                          desktop-file-utils
                          `(,glib "bin")
                          `(,gtk+ "bin")
@@ -52,10 +54,7 @@
                   mate-menus
                   libnotify
                   pango))
-    (home-page "https://codeberg.org/guix-mate/brisk-menu-guix")
-    (synopsis "Solus Project's Brisk Menu MATE Panel Applet")
-    (description
-     "Brisk Menu is a modern desktop menu for the MATE Desktop
-Environment providing the  MATE Desktop with a first-class application and
-system menu applet.")
-    (license (list license:gpl2+ license:cc-by-sa4.0))))
+    (home-page "https://github.com/ubuntu-mate/mate-window-applets")
+    (synopsis "Window applets for MATE Desktop")
+    (description "Collection of applets.")
+    (license (list license:gpl3 license:gpl3+))))
