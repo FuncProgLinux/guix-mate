@@ -1,4 +1,4 @@
-# GUIX MATE 🦬🧉
+# GUIX MATE 🧉
 
 This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 
@@ -7,22 +7,7 @@ This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 - Jealous of that Ubuntu audio indicator with music player controls?
 - Running away from rust? MATE is almost pure C.
 
-Return to the comfy _traditional_ desktop everyone loved in the 2000's
-
-_This channel is still experimental. You can see package progress
-[here](https://codeberg.org/guix-mate/guix-mate/issues)_
-
-## Usage
-
-This channel is not ready to be used. Grab an issue if you wish to help.
-
-## Upstreamed packages
-
-The following packages are now part of GNU GUIX and are no longer present in
-this repository:
-
-- `python-xapp`: Python bindings for `libxapp`
-- `mint-icon-themes`: [IN REVIEW] Linux Mint Icon themes
+Return to the comfy _traditional_ desktop everyone loved in the 2000's.
 
 ## Goals
 
@@ -32,75 +17,32 @@ this repository:
 - Rebrand if possible to improve user experience and integration with GUIX
 - Upstream packages to GNU Guix to benefit trisquel users migrating
 
+## Usage
+
+To install this channel you must paste the following on your `channels.scm`
+file:
+
+```scheme
+(channel
+    (name 'guix-mate)
+    (branch "main")
+    (url "https://codeberg.org/guix-mate/guix-mate")
+    (introduction
+            (make-channel-introduction
+                    "70e843bef537d74d43744d4abc94691adc4e4197"
+                    (openpgp-fingerprint
+                    "DF6F 2589 1002 1FB5 29DB DBF1 E495 97E6 5890 833D"))))
+```
+
+## Contributing
+
+Please see the [CONTRIBUTING](CONTRIBUTING.md) file for more details.
+
 ## FAQ
 
 Please read [FAQ.md](FAQ.md)
 
 ## Available software
 
-The following list shows the available packages you can install + the packages
-we wish to maintain in this repository:
-
-### Mint
-
-- [ ] `mintdesktop` (The original mate-tweak)
-- [ ] `mintMenu` (The original `advanced-mate-menu`)
-- [x] `xed` (Pluma fork, more complete than pluma, cross platform between
-      XFCE/MATE/Cinnamon)
-  - ![already supported](./.repo-assets/xed.png)
-- [ ] [`xdg-desktop-portal-xapp`](https://github.com/linuxmint/xdg-desktop-portal-xapp)
-      Make Cinnamon, MATE & XFCE compatible with desktop portals.
-- [ ] [`xviewer`](https://github.com/linuxmint/xviewer) (xapp image viewer,
-      looks the same on XFCE/MATE/Cinnamon)
-  - **[WIP]: Taking longer than expected because xviewer requires a newer
-    `libxapp` which I don't know how to update manually**
-- [ ] [`sticky`](https://github.com/linuxmint/sticky) (Note taking application.)
-- [ ] [`xapp-thumbnailers`](https://github.com/linuxmint/xapp-thumbnailers)
-      (Thumbnail generators)
-- [ ] [`webapp-manager`](https://github.com/linuxmint/webapp-manager/tree/master)
-- [ ] [`warpinator`](https://github.com/linuxmint/warpinator)
-- [ ] [`xreader`](https://github.com/linuxmint/xreader)
-- [ ] [`timeshift`](https://github.com/linuxmint/timeshift)
-- [ ] [`pix`](https://github.com/linuxmint/pix)
-- [ ] [`lightdm-settings`](https://github.com/linuxmint/lightdm-settings)
-      (Lightdm settings UI)
-- [ ] `mint-themes` (The whole bundle of mint-x mint-y and mint-l both GTK +
-      Icon themes)
-  - [ ] `mint-x`
-    - [x] `mint-x-icons`
-    - [ ] `mint-x-gtk`
-  - [ ] `mint-y`
-    - [x] `mint-y-icons`
-    - [ ] `mint-y-gtk`
-  - [ ] `mint-l`
-    - [x] `mint-l-icons`
-    - [ ] `mint-l-gtk`
-- [ ] `xviewer-plugins`
-
-### Ubuntu MATE
-
-- [x] Yaru MATE themes by default (Already in GUIX)
-- [ ] `mate-hud` with `rofi`
-- [ ] `mate-dock-applet`
-- [ ] `indicator-emojitwo`
-- [ ] Ayatana indicators
-- [x] `brisk-menu` (Our
-      [fork of Brisk Menu](https://codeberg.org/guix-mate/brisk-menu-guix))
-- [ ] `ubuntu-mate-artwork` (Wallpapers, icons and themes)
-- [x] [`mate-window-applets`](https://github.com/ubuntu-mate/mate-window-applets)
-- [ ] Plank
-
-### Trisquel
-
-- [ ] Trisquel Themes (greybird?)
-- [ ] Trisquel Icons (subsitute trisquel logo for GUIX logo by luis felipe)
-- [ ] Package abrowser (most of it's installation is rebranding only in the
-      Debian package. Some way to avoid using a proprietary channel is greatly
-      appreciated)
-
-## Excluded software
-
-### Ubuntu MATE
-
-- [`mate-optimus`](https://github.com/ubuntu-mate/mate-optimus) only useful for
-  proprietary drivers.
+Consult the [package matrix document](PACKAGE_MATRIX.md) for more information
+about available software in this repository.

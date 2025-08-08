@@ -1,0 +1,15 @@
+;;; GUIX-MATE News File -*- mode: scheme; -*-
+;;
+;;; Copyright © 2025 FuncProgLinux <softwarelibre@urutau-ltd.org>
+;;
+;;; This file is part of GUIX-MATE and it's licensed under the same terms
+;;; of the original repository, see the LICENSE file for more information.
+(channel-news
+ (version 0)
+ (entry (commit "70e843bef537d74d43744d4abc94691adc4e4197")
+        (title (en "Channel stabilized")
+               (es "Canal estabilizado"))
+        (body (en "This guix channel is ready to be used by others in need of
+MATE desktop goodies!")
+              (es "Este canal de guix está listo para ser usado por otros que
+necesiten de comodidades del entorno de escritorio MATE!"))))

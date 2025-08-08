@@ -1,3 +1,4 @@
 (channel
   (version 0)
-  (directory "channel"))
+  (directory "channel")
+  (news-file "etc/news.txt"))
