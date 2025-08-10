@@ -52,7 +52,7 @@ about this particular channel activity.
 | `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | 🛠️ In progress                                | ❌                  |
 | `indicator-emojitwo`  | https://github.com/ubuntu-mate/indicator-emojitwo  | ❌ Not started                                | ❌                  |
 | `ubuntu-mate-artwork` | https://github.com/ubuntu-mate/ubuntu-mate-artwork | ❌ Not started                                | ❌                  |
-| `mate-tweak`          | https://github.com/ubuntu-mate/mate-tweak          | 🛠️ In progress                                | ⛔️ Won't upstream*  |
+| `mate-tweak`          | https://github.com/ubuntu-mate/mate-tweak          | ✅ Completed                                  | ⛔️ Won't upstream*  |
 
 ## Trisquel GNU/Linux-libre Packages
 

@@ -20,7 +20,16 @@
   #:use-module (guix packages)
   #:use-module (guix utils))
 
-;; TODO: Cleanup this package
+;;; TODO: Cleanup and fix all paths inside this package
+;;;
+;;; Guix is unable to suggest outputs for packages
+;;; but this particular piece of software requires multiple
+;;; packages to be installed to show options completely:
+;;;
+;;; - /usr/bin/mate-maximus & /usr/lib/mate-netbook/mate-window-picker-applet
+;;; - /usr/libexec/brisk-menu (already packaged, unusable)
+;;; - /usr/lib/mate-applets/mate-dock-applet/dock.py
+;;; - picom
 
 (define-public mate-tweak
   (package
@@ -74,6 +83,7 @@
                   (("\\{prefix\\}/")
                    "")))))
 
+          ;; Add GI_TYPELIB_PATH to the final library
           (add-after 'wrap 'gi-wrap
             (lambda _
               (let ((prog (string-append #$output "/bin/mate-tweak")))
@@ -81,10 +91,13 @@
                   `("GI_TYPELIB_PATH" =
                     (,(getenv "GI_TYPELIB_PATH")))))))
 
+          ;; Post-installation path fixes. Guix doesn't have "sw" unlike
+          ;; nix, but we don't need it anyways
           (add-after 'install 'substitute-usr-paths
             (lambda* (#:key outputs inputs #:allow-other-keys)
               (let* ((out (assoc-ref outputs "out"))
-                     (marco (assoc-ref inputs "marco")))
+                     (marco (assoc-ref inputs "marco"))
+                     (maximus (assoc-ref inputs "mate-maximus")))
                 (substitute* (find-files (string-append out "/bin")
                                          "\\mate-tweak$")
                   (("/usr/bin/marco")
@@ -117,5 +130,3 @@
 by the Mate Control Center, such as panel layouts, desktop icons show & hide
 options and window manager tuning.")
     (license license:gpl2+)))
-
-mate-tweak
