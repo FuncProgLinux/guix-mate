@@ -15,7 +15,7 @@ about this particular channel activity.
 | `mint-x-icons`                              | https://github.com/linuxmint/mint-x-icons            | ✅ Working       | ➡️ In progess                  |
 | `mint-y-icons`                              | https://github.com/linuxmint/mint-y-icons            | ✅ Working       | ➡️ In progess                  |
 | `mint-l-icons`                              | https://github.com/linuxmint/mint-l-icons            | ✅ Working       | ➡️ In progess                  |
-| `mint-themes`                               | https://github.com/linuxmint/mint-themes             | ❌ Not started   | ❌                             |
+| `mint-themes`                               | https://github.com/linuxmint/mint-themes             | 🛠️ In progress   | ❌                             |
 | `xdg-desktop-portal-xapp`                   | https://github.com/linuxmint/xdg-desktop-portal-xapp | ❌ Not started   | ❌                             |
 | `python-xapp`                               | https://github.com/linuxmint/python-xapp             | ✅ Working       | ✅ `gnu/packages/cinnamon.scm` |
 | `xviewer`                                   | https://github.com/linuxmint/xviewer                 | ❌ Not started   | ❌                             |
@@ -49,7 +49,7 @@ about this particular channel activity.
 | `brisk-menu`          | https://codeberg.org/guix-mate/brisk-menu-guix     | ✅ Completed                                  | ❌                  |
 | `mate-window-applets` | https://github.com/ubuntu-mate/mate-window-applets | ✅ Completed                                  | ❌                  |
 | `mate-hud`            | https://github.com/ubuntu-mate/mate-hud            | ❌ Not started                                | ❌                  |
-| `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | ❌ Not started                                | ❌                  |
+| `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | 🛠️ In progress                                | ❌                  |
 | `indicator-emojitwo`  | https://github.com/ubuntu-mate/indicator-emojitwo  | ❌ Not started                                | ❌                  |
 | `ubuntu-mate-artwork` | https://github.com/ubuntu-mate/ubuntu-mate-artwork | ❌ Not started                                | ❌                  |
 
@@ -66,6 +66,7 @@ about this particular channel activity.
 | `mate-indicator-applet` | https://github.com/mate-desktop/mate-indicator-applet | ❌ Not started   | ❌                  |
 | `pluma-plugins`         | https://github.com/mate-desktop/pluma-plugins         | ❌ Not started   | ❌                  |
 | `caja-actions`          | https://github.com/mate-desktop/caja-actions          | ❌ Not started   | ❌                  |
+| `python-caja`           | https://github.com/mate-desktop/python-caja           | ✅ Completed     | ❌                  |
 
 ## Screenshots
 
