@@ -12,4 +12,13 @@
         (body (en "This guix channel is ready to be used by others in need of
 MATE desktop goodies!")
               (es "Este canal de guix está listo para ser usado por otros que
-necesiten de comodidades del entorno de escritorio MATE!"))))
+necesiten de comodidades del entorno de escritorio MATE!")))
+ (entry (commit "729c9741a81fe1f8bd12d338d5710499853c5808")
+        (title (en "Add python-caja bindings version 1.28.0")
+               (es "Se añadió el paquete python-caja versión 1.28.0"))
+        (body (en "This library allows you to extend caja with your own
+Python scripts placed inside @code{XDG_DATA_DIR/caja-python/extensions}
+including @code{~/.local/share}, see @url{https://github.com/mate-desktop/python-caja/blob/master/examples/open-terminal.py, an e xample file} inside upstream for more information")
+              (es "Esta biblioteca te permitirá extender Caja con tus propios
+scripts de Python, colocados en @code{XDG_DATA_DIR/caja-python/extensions}
+incluyendo @code{~/.local/share}, lee @url{https://github.com/mate-desktop/python-caja/blob/master/examples/open-terminal.py, un script de ejemplo} en el repositorio del autor para más información"))))
