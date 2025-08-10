@@ -21,4 +21,13 @@ Python scripts placed inside @code{XDG_DATA_DIR/caja-python/extensions}
 including @code{~/.local/share}, see @url{https://github.com/mate-desktop/python-caja/blob/master/examples/open-terminal.py, an e xample file} inside upstream for more information")
               (es "Esta biblioteca te permitirá extender Caja con tus propios
 scripts de Python, colocados en @code{XDG_DATA_DIR/caja-python/extensions}
-incluyendo @code{~/.local/share}, lee @url{https://github.com/mate-desktop/python-caja/blob/master/examples/open-terminal.py, un script de ejemplo} en el repositorio del autor para más información"))))
+incluyendo @code{~/.local/share}, lee @url{https://github.com/mate-desktop/python-caja/blob/master/examples/open-terminal.py, un script de ejemplo} en el repositorio del autor para más información")))
+ (entry (commit "e72cccbcc38d08b0c18ecef2855645e51fc8aa5f")
+        (title (en "Add mate-tweak")
+               (es "Se añadió el paquete mate-tweak"))
+        (body (en "Added mate-tweak package from Ubuntu MATE, it's missing
+a lof of functionality compared to the upstream implementation, this is
+expected to be polished as this channel progresses.")
+              (es "Se añadió el paquete mate-tweak de Ubuntu MATE, algunas
+funcionalidades faltan comparado con la implementación original, se espera
+que esto se solucione como vaya progresando este canal."))))
