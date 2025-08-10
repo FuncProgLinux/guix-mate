@@ -1,3 +1,5 @@
+<img src=".repo-assets/logo.png" height="150" width="150"  />
+
 # GUIX MATE 🧉
 
 This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
