@@ -20,6 +20,8 @@
   #:use-module (guix packages)
   #:use-module (guix utils))
 
+;; TODO: Cleanup this package
+
 (define-public mate-tweak
   (package
     (name "mate-tweak")
@@ -37,6 +39,13 @@
     (build-system python-build-system)
     (arguments
      (list
+      #:imported-modules `((guix build glib-or-gtk-build-system)
+                           ,@%python-build-system-modules)
+      #:modules '((guix build python-build-system)
+                  ((guix build glib-or-gtk-build-system)
+                   #:prefix glib-or-gtk:
+                   #:select (glib-or-gtk-build))
+                  (guix build utils))
       #:phases
       #~(modify-phases %standard-phases
           ;; sanity checks fail with a
@@ -45,17 +54,41 @@
           (delete 'sanity-check)
           ;; Substitute non /usr paths until #95 is merged
           ;; upstream.
-          ;; NOTE: Consider forking & merging patch
+          ;; NOTE: Consider forking & merging patch manually
           ;; for this repository
           (add-after 'unpack 'substitute-hardcoded-paths
             (lambda* (#:key outputs #:allow-other-keys)
               (let* ((output (assoc-ref outputs "out")))
+                ;; Substitute paths in all .py files
                 (substitute* (find-files "." "\\.py$")
                   (("/usr/lib/mate-tweak")
                    (string-append output "/lib/mate-tweak")))
+
+                ;; Substitute paths in main mate-tweak binary
+                (substitute* (find-files "." "\\mate-tweak$")
+                  (("/usr/lib/mate-tweak")
+                   (string-append output "/lib/mate-tweak")))
+
+                ;; Remove the "{prefix}"
                 (substitute* "setup.py"
                   (("\\{prefix\\}/")
-                   ""))))))))
+                   "")))))
+
+          (add-after 'wrap 'gi-wrap
+            (lambda _
+              (let ((prog (string-append #$output "/bin/mate-tweak")))
+                (wrap-program prog
+                  `("GI_TYPELIB_PATH" =
+                    (,(getenv "GI_TYPELIB_PATH")))))))
+
+          (add-after 'install 'substitute-usr-paths
+            (lambda* (#:key outputs inputs #:allow-other-keys)
+              (let* ((out (assoc-ref outputs "out"))
+                     (marco (assoc-ref inputs "marco")))
+                (substitute* (find-files (string-append out "/bin")
+                                         "\\mate-tweak$")
+                  (("/usr/bin/marco")
+                   (string-append marco "/bin/marco")))))))))
     (native-inputs `(("python-wrapper" ,python-wrapper)
                      ("intltool" ,intltool)
                      ("python-distutils-extra" ,python-distutils-extra)
