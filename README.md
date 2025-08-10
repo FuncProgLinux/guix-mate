@@ -17,7 +17,7 @@ Return to the comfy _traditional_ desktop everyone loved in the 2000's.
 - Rebrand if possible to improve user experience and integration with GUIX
 - Upstream packages to GNU Guix to benefit trisquel users migrating
 
-## Usage
+## Usage (Remote)
 
 To install this channel you must paste the following on your `channels.scm`
 file:
@@ -46,3 +46,7 @@ Please read [FAQ.md](FAQ.md)
 
 Consult the [package matrix document](PACKAGE_MATRIX.md) for more information
 about available software in this repository.
+
+## Credits
+
+This channel takes bits & pieces from other libre software projects:
