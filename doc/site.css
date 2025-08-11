@@ -43,12 +43,9 @@ END COLOURS
 BEGIN MAIN
 */
 body {
-  display: flex;
   background-color: var(--bg-color);
   color: var(--text-color);
   height: 95vh;
-  flex-direction: column;
-  overflow: hidden;
 }
 
 /*

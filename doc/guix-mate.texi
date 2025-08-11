@@ -30,6 +30,10 @@ Documentation License''.
 * Index:: Complete document index.
 * Disclaimer of Warranty:: Disclaimer of this guide.
 * Introduction:: A brief introductory page for users reading this material.
+* Project Goals:: Know the project goals, what this channel is limited to.
+* Packages:: A list and description of some packages offered by us.
+* Services:: A list of Gnu Guix services.
+* Thanks:: Thanks.
 @end menu
 
 @node Disclaimer of Warranty
@@ -50,5 +54,101 @@ starting point for users migrating from both 100% Free and maybe not-so-free
 Gnu/Linux distributions while explaining what's inside this repository, how to
 replace the software you are used to in other distributions like Trisquel
 and how to contribute to this repository.
+
+@section Guix MATE, what is and what isn't.
+
+Guix MATE is not a distribution, nor a re-spin or derivative of GNU Guix. It's
+a supplementary channel that addresses the missing bits and pieces of the MATE
+desktop environment within the GNU Guix ecosystem. This channel strives to
+provide a nice MATE desktop experience without making you leave the comfort
+of your Guix installation.
+
+@section Why this channel exists
+
+Inspiration for this channel began from the author moving across Gnu/Linux
+distributions. At the time I started using GNU/Linux the popular GNOME 2
+desktop was already long gone. But an effort called @var{Ubuntu MATE} was
+being born someplace in the Internet, this distribution, alongside
+@var{Linux Mint} were (and maybe still are) the MATE Desktop giants, with a
+huge commitment to providing a polished, easy-to-use, revived GNOME 2 desktop
+experience. While I haven't been long enough in the GNU lands, the idea of a
+traditional desktop catched my attention since, at that time, I had a weak
+computer that couldn't handle the resource hungry GNOME 3.X of those ages.
+After taking more steps towards software freedom I noticed not so many
+distributions did the same for the MATE Desktop, sure, it was available for
+the mainstream Gnu/Linux distributions everyone knows, but their efforts were
+clearly pointed towards other desktops, with missing software like the
+@code{mate-menu} or the @code{dconf} settings editor that Linux Mint created
+under the name @code{mintdesktop} which Ubuntu MATE later 
+ported as @code{mate-tweak} were missing from some major distributions.
+
+Then I came across Trisquel GNU/Linux-Libre which was my mainline distribution
+for quite some time, and, while it's timing left me much to desire when it
+came to software updates, it had @var{freedom} all over it, including a very
+clean MATE Desktop implementation. When I moved on to Gnu Guix, I was glad that
+the installer had a @code{MATE} option but I was sad to see that there were
+many bits missing from this wonderful desktop. This is, of course, not
+anyone's fault or a rant directed to the Guix maintainers, the community is
+small and everyone is doing their best to keep up their computing tasks and
+maintaining the distribution. While I was unfamiliar with the email patches
+process for contribution, I had the luck of starting just a few weeks after
+the project had migrated to Codeberg.
+
+So, this channel, Guix MATE, is my solution to this problem I have. It's the
+synthesis of these awesome experiences I had with free and not-so-free
+distributions while trying to contribute back something to the organization
+that introduced me to what the word @var{freedom} really meant. In this channel
+I want to create a space for MATE enthusiasts to enjoy a 100% libre, declarative
+and reproducible desktop environment, extending what Guix already offers so
+other Trisquel GNU/Linux-libre users can jump with less friction in the
+future.
+
+@node Project Goals
+@chapter Project Goals
+
+@node Packages
+@chapter Packages
+
+This chapter provides a detailed overview of the packages available in this
+particular channel. All packages in this channel are guaranteed to be 100%
+free-as-in-freedom software.
+
+@section Core MATE Packages
+
+This channel provides some missing foundational packages from the MATE Desktop
+environment such as:
+
+@enumerate
+@item @code{caja-python}: Python bindings to extend the Caja file manager.
+@end enumerate
+
+@section Ubuntu MATE Packages
+
+We also provide some packages directly from Ubuntu MATE. Some of these have been
+abandoned since 2021-2023. I personally would like to believe it's because
+these are @var{feature-complete} rather than abandonware.
+
+For these particular cases if, after some time, no more movement is seen on
+these packages, a fork will be made and maintained using missing merge requests
+or patches to ensure fellow geeks get a comfy desktop experience:
+
+@enumerate
+@item @code{brisk-menu}: Modern MATE menu written in C. Forked from an abandoned repo here in Codeberg.
+@item @code{mate-menu}: Port of @code{mintmenu} with Mint-specific code replaced.
+@item @code{mate-tweak}: Port of @code{mintdesktop} with Mint-specific code replaced.
+@item @code{mate-dock-applet}: Modern dock-like window list for MATE Desktop
+@end enumerate
+
+@section Linux Mint MATE Packages
+
+@section Trisquel Gnu/Linux-Libre Packages
+
+@section Non-MATE but related packages
+
+@node Services
+@chapter Services
+
+@node Thanks
+@chapter Thanks
 
 @bye
