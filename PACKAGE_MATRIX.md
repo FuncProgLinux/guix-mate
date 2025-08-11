@@ -7,27 +7,27 @@ about this particular channel activity.
 
 ## Linux Mint Packages
 
-| Package                                 | Upstream URL                                         | Packaging status                        | Upstreamed to Guix?            |
-| --------------------------------------- | ---------------------------------------------------- | --------------------------------------- | ------------------------------ |
-| `xed` (Pluma Fork)                      | https://github.com/linuxmint/xed                     | 🧨 Broken                               | ❌                             |
-| `mintmenu` (Alternative to `mate-menu`) | https://github.com/linuxmint/mintmenu                | 🧨 Broken                               | ❌                             |
-| `mintdesktop`                           | https://github.com/linuxmint/mintdesktop             | ⚠️ Deprecated, use `mate-tweak` instead | ❌                             |
-| `mint-x-icons`                          | https://github.com/linuxmint/mint-x-icons            | ✅ Working                              | ➡️ In progess                  |
-| `mint-y-icons`                          | https://github.com/linuxmint/mint-y-icons            | ✅ Working                              | ➡️ In progess                  |
-| `mint-l-icons`                          | https://github.com/linuxmint/mint-l-icons            | ✅ Working                              | ➡️ In progess                  |
-| `mint-themes`                           | https://github.com/linuxmint/mint-themes             | 🛠️ In progress                          | ❌                             |
-| `xdg-desktop-portal-xapp`               | https://github.com/linuxmint/xdg-desktop-portal-xapp | ❌ Not started                          | ❌                             |
-| `python-xapp`                           | https://github.com/linuxmint/python-xapp             | ✅ Working                              | ✅ `gnu/packages/cinnamon.scm` |
-| `xviewer`                               | https://github.com/linuxmint/xviewer                 | ❌ Not started                          | ❌                             |
-| `xviewer-plugins`                       | https://github.com/linuxmint/xviewer-plugins         | ❌ Not started                          | ❌                             |
-| `sticky`                                | https://github.com/linuxmint/sticky                  | ❌ Not started                          | ❌                             |
-| `xapp-thumbnailers`                     | https://github.com/linuxmint/xapp-thumbnailers       | ❌ Not started                          | ❌                             |
-| `webapp-manager`                        | https://github.com/linuxmint/webapp-manager          | ❌ Not started                          | ❌                             |
-| `warpinator`                            | https://github.com/linuxmint/warpinator              | ❌ Not started                          | ❌                             |
-| `xreader`                               | https://github.com/linuxmint/xreader                 | ❌ Not started                          | ❌                             |
-| `timeshift`                             | https://github.com/linuxmint/timeshift               | ❌ Not started                          | ❌                             |
-| `pix`                                   | https://github.com/linuxmint/pix                     | ❌ Not started                          | ❌                             |
-| `lightdm-settings`                      | https://github.com/linuxmint/lightdm-settings        | ❌ Not started                          | ❌                             |
+| Package                   | Upstream URL                                         | Packaging status                        | Upstreamed to Guix?            |
+| ------------------------- | ---------------------------------------------------- | --------------------------------------- | ------------------------------ |
+| `xed` (Pluma Fork)        | https://github.com/linuxmint/xed                     | 🧨 Broken                               | ❌                             |
+| `mintmenu`                | https://github.com/linuxmint/mintmenu                | ⚠️ Deprecated, use `mate-menu` instead  | ❌                             |
+| `mintdesktop`             | https://github.com/linuxmint/mintdesktop             | ⚠️ Deprecated, use `mate-tweak` instead | ❌                             |
+| `mint-x-icons`            | https://github.com/linuxmint/mint-x-icons            | ✅ Working                              | ➡️ In progess                  |
+| `mint-y-icons`            | https://github.com/linuxmint/mint-y-icons            | ✅ Working                              | ➡️ In progess                  |
+| `mint-l-icons`            | https://github.com/linuxmint/mint-l-icons            | ✅ Working                              | ➡️ In progess                  |
+| `mint-themes`             | https://github.com/linuxmint/mint-themes             | 🛠️ In progress                          | ❌                             |
+| `xdg-desktop-portal-xapp` | https://github.com/linuxmint/xdg-desktop-portal-xapp | ❌ Not started                          | ❌                             |
+| `python-xapp`             | https://github.com/linuxmint/python-xapp             | ✅ Working                              | ✅ `gnu/packages/cinnamon.scm` |
+| `xviewer`                 | https://github.com/linuxmint/xviewer                 | ❌ Not started                          | ❌                             |
+| `xviewer-plugins`         | https://github.com/linuxmint/xviewer-plugins         | ❌ Not started                          | ❌                             |
+| `sticky`                  | https://github.com/linuxmint/sticky                  | ❌ Not started                          | ❌                             |
+| `xapp-thumbnailers`       | https://github.com/linuxmint/xapp-thumbnailers       | ❌ Not started                          | ❌                             |
+| `webapp-manager`          | https://github.com/linuxmint/webapp-manager          | ❌ Not started                          | ❌                             |
+| `warpinator`              | https://github.com/linuxmint/warpinator              | ❌ Not started                          | ❌                             |
+| `xreader`                 | https://github.com/linuxmint/xreader                 | ❌ Not started                          | ❌                             |
+| `timeshift`               | https://github.com/linuxmint/timeshift               | ❌ Not started                          | ❌                             |
+| `pix`                     | https://github.com/linuxmint/pix                     | ❌ Not started                          | ❌                             |
+| `lightdm-settings`        | https://github.com/linuxmint/lightdm-settings        | ❌ Not started                          | ❌                             |
 
 ## Ayatana Indicators
 
@@ -49,10 +49,11 @@ about this particular channel activity.
 | `brisk-menu`          | https://codeberg.org/guix-mate/brisk-menu-guix     | ✅ Completed                                  | ⛔️ Won't upstream*  |
 | `mate-window-applets` | https://github.com/ubuntu-mate/mate-window-applets | ✅ Completed                                  | ❌                  |
 | `mate-hud`            | https://github.com/ubuntu-mate/mate-hud            | ❌ Not started                                | ❌                  |
-| `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | 🛠️ In progress                                | ❌                  |
+| `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | ✅ Completed                                  | ❌                  |
 | `indicator-emojitwo`  | https://github.com/ubuntu-mate/indicator-emojitwo  | ❌ Not started                                | ❌                  |
 | `ubuntu-mate-artwork` | https://github.com/ubuntu-mate/ubuntu-mate-artwork | ❌ Not started                                | ❌                  |
 | `mate-tweak`          | https://github.com/ubuntu-mate/mate-tweak          | ✅ Completed                                  | ⛔️ Won't upstream*  |
+| `mate-menu`           | https://github.com/ubuntu-mate/mate-menu           | ✅ Completed                                  | ⛔️ Won't upstream*  |
 
 ## Trisquel GNU/Linux-libre Packages
 
