@@ -1,0 +1,35 @@
+# -*- mode: makefile-gmake; -*-
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright © 2024-2025 Urutau-Ltd <softwarelibre@urutau-ltd.org>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+OUTPUT_TARGET = ./doc/build/
+
+DOC_SRC = ./doc/guix-mate.texi
+CSS_DOC_SRC = ./doc/site.css
+
+HTML_OUTPUT = $(OUTPUT_TARGET)/guix-mate.html
+PDF_OUTPUT = $(OUTPUT_TARGET)/guix-mate.pdf
+
+
+docs: ## Compile both PDF & HTML docs for this repository
+	@echo "==> [GUIX-MATE/DOCS]: Compiling documentation..."
+	@texi2any $(DOC_SRC) --html --css-include=$(CSS_DOC_SRC) --no-split  --output $(HTML_OUTPUT)
+	@texi2any $(DOC_SRC) --pdf --output $(PDF_OUTPUT)
+	@echo "==> [GUIX-MATE/DOCS]: Cleaning transient files..."
+	@rm guix-mate.aux
+	@rm guix-mate.log
+	@rm guix-mate.toc
+	@echo "==> [GUIX-MATE/DOCS]: Documentation is ready!"
