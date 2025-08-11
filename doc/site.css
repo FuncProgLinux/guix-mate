@@ -1,0 +1,75 @@
+/*
+Guix MATE project CSS variables for TeXInfo files.
+Freed for the Public Domain. All rights removed.
+
+Some css code inspired on the CSS by Luis Felipe López. Also released
+under the public domain at 2016.
+*/
+
+/*
+BEGIN COLOURS
+*/
+:root {
+  color-scheme: light dark;
+  /* Color palette */
+  --bg-color: #f4f4f4;
+  --border-color: #e6e6e6;
+  --link-color: #245c8a;
+  --sheet-color: white;
+  --sheet-shadow: gray;
+  --symbol-color: #87a556;
+  --text-color: black;
+  /* Fonts */
+  --base-font-size: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #3c3a36;
+    --border-color: black;
+    --link-color: #8eb2cd;
+    --sheet-color: #222;
+    --sheet-shadow: var(--border-color);
+    --symbol-color: #87a556;
+    --text-color: #f5f5f5;
+  }
+}
+
+/*
+END COLOURS
+*/
+
+/*
+BEGIN MAIN
+*/
+body {
+  display: flex;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  height: 95vh;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/*
+END MAIN
+*/
+
+/*
+BEGIN TOPLEVEL
+*/
+a:link,
+a:visited {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:active,
+a:focus,
+a:hover {
+  color: var(--symbol-color);
+  text-decoration: underline;
+}
+/*
+END TOPLEVEL
+*/

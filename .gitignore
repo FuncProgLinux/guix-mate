@@ -1,1 +1,4 @@
 doc/build/*
+guix-mate.toc
+guix-mate.aux
+guix-mate.log
