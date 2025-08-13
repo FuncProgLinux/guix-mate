@@ -70,11 +70,6 @@ about this particular channel activity.
 | `caja-actions`          | https://github.com/mate-desktop/caja-actions          | ❌ Not started   | ❌                  |
 | `python-caja`           | https://github.com/mate-desktop/python-caja           | ✅ Completed     | ❌                  |
 
-## Screenshots
-
-A picture is worth more than a thousand words, here are some packages live in
-action from this repository.
-
 #### *won't upstream notices
 
 Packages are marked as _wont' upstream_ won't be sent to upstream Guix for a
@@ -90,3 +85,16 @@ This doesn't mean **you** cannot copy and attempt to send patches upstream for
 these packages, it means I won't be maintaining those outside of this channel,
 so updates, patches and bugs will be **yours** to take care of, or wait until I
 notice and repeat the process **yourself**.
+
+## Screenshots
+
+A picture is worth more than a thousand words, here are some packages live in
+action from this repository.
+
+### Ubuntu MATE
+
+Take a look for yourself at the Ubuntu MATE packages we ship!
+
+#### MATE TWEAK
+
+![mate-tweak-screenshot](./.repo-assets/mate-tweak.png)
