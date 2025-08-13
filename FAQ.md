@@ -21,3 +21,14 @@ concluding if this is a bug of ours or an upstream bug.
 The `mint-cursor-themes` package was skipped because it contains the Bibata
 cursor theme which is already present in GNU Guix. The other cursors don't
 appear to be important whatsoever, so, that particular package was skipped.
+
+4. Why are maintenance & build scripts written in `perl`?
+
+At this particular moment I don't consider myself a scheme hacker, but I know
+how to write some modern-ish perl to get the job done as I prefer it over
+`bash` even for simple scripts.
+
+None of the scripts included need external modules and only use the vanilla
+perl modules.
+
+Maybe, if the future is bright these will be rewritten to scheme :)
