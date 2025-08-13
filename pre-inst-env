@@ -65,7 +65,7 @@ pre-inst-env [OPTIONS] <command> [args...]
 
 This script serves as a C<pre-installation environment> for Gnu Guix.
 Its primary function is to set up the necessary environment variables, 
-specifically C<GUILE_LOAD_PATH> and `GUIX_PACKAGE_PATH`, to include a custom
+specifically C<GUILE_LOAD_PATH> and C<GUIX_PACKAGE_PATH>, to include a custom
 channel's main directory (set in the C<.guix-channel> file) before executing
 any subsequent command.
 
