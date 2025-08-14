@@ -52,7 +52,7 @@ about this particular channel activity.
 | `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | ✅ Completed                                  | ❌                  |
 | `indicator-emojitwo`  | https://github.com/ubuntu-mate/indicator-emojitwo  | ❌ Not started                                | ❌                  |
 | `ubuntu-mate-artwork` | https://github.com/ubuntu-mate/ubuntu-mate-artwork | ❌ Not started                                | ❌                  |
-| `mate-tweak`          | https://github.com/ubuntu-mate/mate-tweak          | ✅ Completed                                  | ➡️ In progess       |
+| `mate-tweak`          | https://github.com/ubuntu-mate/mate-tweak          | ✅ Completed                                  | ❌                  |
 | `mate-menu`           | https://github.com/ubuntu-mate/mate-menu           | ✅ Completed                                  | ⛔️ Won't upstream*  |
 
 ## Trisquel GNU/Linux-libre Packages
@@ -63,13 +63,13 @@ about this particular channel activity.
 
 ## MATE Desktop
 
-| Package                    | Upstream URL                                             | Packaging status | Upstreamed to Guix? |
-| -------------------------- | -------------------------------------------------------- | ---------------- | ------------------- |
-| `mate-indicator-applet`    | https://github.com/mate-desktop/mate-indicator-applet    | ❌ Not started   | ❌                  |
-| `pluma-plugins`            | https://github.com/mate-desktop/pluma-plugins            | ❌ Not started   | ❌                  |
-| `caja-actions`             | https://github.com/mate-desktop/caja-actions             | ❌ Not started   | ❌                  |
-| `python-caja`              | https://github.com/mate-desktop/python-caja              | ✅ Completed     | ➡️ In progess       |
-| `mate-notification-daemon` | https://github.com/mate-desktop/mate-notification-daemon | 🛠️ In progress   | ❌                  |
+| Package                    | Upstream URL                                             | Packaging status | Upstreamed to Guix?        |
+| -------------------------- | -------------------------------------------------------- | ---------------- | -------------------------- |
+| `mate-indicator-applet`    | https://github.com/mate-desktop/mate-indicator-applet    | ❌ Not started   | ❌                         |
+| `pluma-plugins`            | https://github.com/mate-desktop/pluma-plugins            | ❌ Not started   | ❌                         |
+| `caja-actions`             | https://github.com/mate-desktop/caja-actions             | ❌ Not started   | ❌                         |
+| `python-caja`              | https://github.com/mate-desktop/python-caja              | ✅ Completed     | ✅ `gnu/packages/mate.scm` |
+| `mate-notification-daemon` | https://github.com/mate-desktop/mate-notification-daemon | 🛠️ In progress   | ❌                         |
 
 #### *won't upstream notices
 
