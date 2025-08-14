@@ -50,21 +50,39 @@
           (delete 'check)
           (add-after 'unpack 'substitute-hardcoded-paths
             (lambda* (#:key outputs #:allow-other-keys)
-              (let* ((output (assoc-ref outputs "out")))
+              (let* ((output (assoc-ref outputs "out"))
+                     ;; except .png files
+                     (all-files (find-files "."
+                                            (lambda (file stat)
+                                              (not (string-suffix? ".png" file))))))
+                ;; FIXME: This is VERY ugly. Will improve it over time.
                 ;; Substitute /usr paths in all .py
                 ;; files.
-                (substitute* (find-files "." "\\.py$")
-                  (("/usr/share/")
-                   (string-append output "/share/")))
+                (substitute* all-files
+                  (("/usr/")
+                   (string-append output "/")))
 
-                (substitute* (find-files "." "\\.py$")
-                  (("/usr/lib/")
-                   (string-append output "/lib/")))
+                ;; Patch nonfree-programs. pidgin & rhythmbox are both
+                ;; present in Guix. Not adding as dependencies to avoid
+                ;; inadvertedly bloating the user's system.
+                (substitute* all-files
+                  (("firefox.desktop")
+                   "icecat.desktop")
+                  (("thunderbird.desktop")
+                   "icedove.desktop"))
 
                 (substitute* "mate-menu"
                   (("'/','usr','lib','mate-menu','mate-menu.py'")
                    (string-append "'" output
-                                  "','lib','mate-menu','mate-menu.py'"))))))
+                                  "','lib','mate-menu','mate-menu.py'")))
+
+                (substitute* "lib/mate-menu-config.py"
+                  (("'/','usr','share','mate-menu'")
+                   (string-append "'" output "','share','mate-menu'")))
+
+                (substitute* "lib/mate-menu.py"
+                  (("'/','usr','share','mate-menu'")
+                   (string-append "'" output "','share','mate-menu'"))))))
           (add-after 'wrap 'gi-wrap
             (lambda _
               (let ((prog (string-append #$output "/bin/mate-menu")))
