@@ -3,11 +3,13 @@
 ;; cualquier comando 'guix' que acepte una opción '--manifest' (o -m).
 
 (concatenate-manifests (list (specifications->manifest (list "emacs"
-                                                        "emacs-geiser"
-                                                        "emacs-geiser-guile"
-                                                        "emacs-paredit"
-                                                        "guile-lsp-server"
-                                                        "make"
-                                                        "perl"))
+                                                             "guix"
+                                                             "guile"
+                                                             "emacs-geiser"
+                                                             "emacs-geiser-guile"
+                                                             "emacs-paredit"
+                                                             "guile-lsp-server"
+                                                             "make"
+                                                             "perl"))
                              (package->development-manifest (specification->package
                                                              "git"))))
