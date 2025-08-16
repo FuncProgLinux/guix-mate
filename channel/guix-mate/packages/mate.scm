@@ -157,10 +157,6 @@ Gnu/Linux.")
                    (string-append "\"" out "/share/gir-1.0/\""))
                   (("\\$\\(\\$PKG_CONFIG --variable=typelibdir gobject-introspection-1.0\\)")
                    (string-append out "/lib/girepository-1.0/"))) #t)))
-          ;; add missing libexec dir
-          (add-before 'glib-or-gtk-wrap 'create-missing-dir
-            (lambda* (#:key outputs #:allow-other-keys)
-              (mkdir (string-append (assoc-ref outputs "out") "/libexec"))))
           ;; patch XDG_DATA_DIRS
           (add-after 'glib-or-gtk-wrap 'wrap-typelib
             (lambda* (#:key outputs inputs #:allow-other-keys)
