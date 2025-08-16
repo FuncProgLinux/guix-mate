@@ -486,12 +486,14 @@ themes for both gtk+-2 and gtk+-3.")
                            ".tar.xz"))
        (sha256
         (base32 "0f5f75bsxvkp80qag95ijwdhi1hb6n7z0zj9iqs535hpk6cn11c9"))))
-    (build-system gnu-build-system)
+    (build-system glib-or-gtk-build-system)
     (arguments
      (list
       #:configure-flags
       #~(list (string-append "--with-cajadir="
-                             #$output "/lib/caja/extensions-2.0/"))))
+                             #$output "/lib/caja/extensions-2.0/")
+              (string-append "--libexec="
+                             #$output "/libexec"))))
     (native-inputs (list pkg-config gettext-minimal itstool libxml2))
     (inputs (list gtk+
                   caja
@@ -533,8 +535,12 @@ it will expose the user's $HOME/Public directory on a webdav server.")
               (replace "mate-themes" mate-themes-3.22.26)
               (replace "mate-applets" mate-applets-1.28.1)
               (replace "mate-panel" mate-panel-1.28.4)
+              ;; Ubuntu MATE Packages
               (append brisk-menu)
               (append mate-menu)
               (append mate-tweak)
+              (append mate-window-applets)
+
+              ;; Upstream MATE packages
               (append mate-sensors-applet)
-              (append mate-window-applets)))))
+              (append mate-user-share)))))
