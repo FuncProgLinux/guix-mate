@@ -379,7 +379,14 @@ hypertext navigation, and table-of-contents bookmarks.")
     (arguments
      (list
       #:configure-flags
-      #~(list "--enable-suid=no" "--enable-in-process")
+      #~(list "--enable-suid=no"
+              "--enable-in-process"
+              "--enable-polkit"
+              (string-append "--libexecdir="
+                             #$output "/libexec")
+              (string-append "--with-dbus-sys="
+                             #$output "/share/dbus-1/system.d")
+              "--enable-ipv6")
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'glib-or-gtk-wrap 'create-missing-dir
@@ -395,6 +402,7 @@ hypertext navigation, and table-of-contents bookmarks.")
                          docbook-xml
                          gobject-introspection))
     (inputs (list at-spi2-core
+                  cpupower
                   dbus
                   dbus-glib
                   glib
@@ -470,6 +478,48 @@ example Menta, TraditionalOk, GreenLaguna or BlackMate.  This package has
 themes for both gtk+-2 and gtk+-3.")
     (license (list license:lgpl2.1+ license:cc-by-sa3.0 license:gpl3+
                    license:gpl2+))))
+
+(define-public mate-user-share
+  (package
+    (name "mate-user-share")
+    (version "1.28.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/"
+                           (version-major+minor version)
+                           "/"
+                           "mate-user-share-"
+                           version
+                           ".tar.xz"))
+       (sha256
+        (base32 "0f5f75bsxvkp80qag95ijwdhi1hb6n7z0zj9iqs535hpk6cn11c9"))))
+    (build-system gnu-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list (string-append "--with-cajadir="
+                             #$output "/lib/caja/extensions-2.0/"))))
+    (native-inputs (list pkg-config gettext-minimal itstool libxml2))
+    (inputs (list gtk+
+                  caja
+                  dbus-glib
+                  libnotify
+                  libcanberra
+                  hicolor-icon-theme))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Public files sharing tools for the MATE Desktop")
+    (description
+     "This package binds programs together to ease file-sharing
+across networks on the MATE Desktop. If the file-sharing option is enabled
+it will expose the user's $HOME/Public directory on a webdav server.")
+    (license license:gpl2+)))
+
+(define-public mate-menus-1.28.0-1
+  (package
+    (inherit mate-menus)
+    (inputs (modify-inputs (package-inputs mate)
+              (replace "python" python)))))
 
 (define-public mate-extra
   (package
