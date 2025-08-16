@@ -78,7 +78,9 @@
     (arguments
      (list
       #:configure-flags
-      #~(list "--enable-in-process")))
+      #~(list "--enable-in-process"
+              (string-append "--libexecdir="
+                             #$output "/libexec"))))
     (native-inputs (list pkg-config
                          intltool ;Listed in Debian package (but not in upstream build.yml)
                          itstool ;Listed in upstream build.yml
@@ -135,10 +137,8 @@ Gnu/Linux.")
       #~(list (string-append "--with-zoneinfo-dir="
                              (assoc-ref %build-inputs "tzdata")
                              "/share/zoneinfo")
-              "--with-in-process-applets=all"
               (string-append "--libexecdir="
-                             #$output "/libexec")
-              "--enable-introspection")
+                             #$output "/libexec") "--enable-introspection")
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'configure 'fix-timezone-path
@@ -382,19 +382,12 @@ hypertext navigation, and table-of-contents bookmarks.")
     (arguments
      (list
       #:configure-flags
-      #~(list "--enable-suid=no"
-              "--enable-in-process"
-              "--enable-polkit"
+      #~(list "--enable-suid=no" "--enable-polkit"
               (string-append "--libexecdir="
                              #$output "/libexec")
               (string-append "--with-dbus-sys="
                              #$output "/share/dbus-1/system.d")
-              "--enable-ipv6")
-      #:phases
-      #~(modify-phases %standard-phases
-          (add-before 'glib-or-gtk-wrap 'create-missing-dir
-            (lambda* (#:key outputs #:allow-other-keys)
-              (mkdir (string-append (assoc-ref outputs "out") "/libexec")))))))
+              "--enable-ipv6")))
     (native-inputs (list pkg-config
                          intltool ;Listed in Debian package (but not in upstream build.yml)
                          itstool ;Listed in upstream build.yml
