@@ -135,7 +135,10 @@ Gnu/Linux.")
       #~(list (string-append "--with-zoneinfo-dir="
                              (assoc-ref %build-inputs "tzdata")
                              "/share/zoneinfo")
-              "--with-in-process-applets=all")
+              "--with-in-process-applets=all"
+              (string-append "--libexecdir="
+                             #$output "/libexec")
+              "--enable-introspection")
       #:phases
       #~(modify-phases %standard-phases
           (add-before 'configure 'fix-timezone-path
