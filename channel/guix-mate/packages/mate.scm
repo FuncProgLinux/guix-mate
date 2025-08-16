@@ -2,22 +2,54 @@
   #:use-module ((guix licenses)
                 #:prefix license:)
   #:use-module (guix build-system glib-or-gtk)
+  #:use-module (guix build-system gnu)
+  #:use-module (guix build-system trivial)
   #:use-module (guix download)
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix utils)
   #:use-module (gnu packages)
+  #:use-module (gnu packages attr)
+  #:use-module (gnu packages autotools)
+  #:use-module (gnu packages backup)
   #:use-module (gnu packages base)
+  #:use-module (gnu packages compression)
+  #:use-module (gnu packages djvu)
+  #:use-module (gnu packages docbook)
+  #:use-module (gnu packages documentation)
+  #:use-module (gnu packages enchant)
+  #:use-module (gnu packages file)
+  #:use-module (gnu packages fonts)
+  #:use-module (gnu packages fontutils)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages gettext)
+  #:use-module (gnu packages ghostscript)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages gnome)
-  #:use-module (gnu packages mate)
+  #:use-module (gnu packages gnupg)
+  #:use-module (gnu packages gstreamer)
   #:use-module (gnu packages gtk)
+  #:use-module (gnu packages image)
+  #:use-module (gnu packages imagemagick)
+  #:use-module (gnu packages iso-codes)
+  #:use-module (gnu packages javascript)
   #:use-module (gnu packages libcanberra)
   #:use-module (gnu packages linux)
+  #:use-module (gnu packages mate)
+  #:use-module (gnu packages messaging)
+  #:use-module (gnu packages multiprecision)
+  #:use-module (gnu packages nss)
+  #:use-module (gnu packages pdf)
+  #:use-module (gnu packages photo)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages polkit)
+  #:use-module (gnu packages pulseaudio)
+  #:use-module (gnu packages python)
+  #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages tex)
+  #:use-module (gnu packages webkit)
+  #:use-module (gnu packages xdisorg)
+  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg))
 
@@ -118,8 +150,8 @@ Gnu/Linux.")
                    (string-append out "/lib/girepository-1.0/"))) #t)))
           ;; add missing libexec dir
           (add-before 'glib-or-gtk-wrap 'create-missing-dir
-                      (lambda* (#:key outputs #:allow-other-keys)
-                        (mkdir (string-append (assoc-ref outputs "out") "/libexec"))))
+            (lambda* (#:key outputs #:allow-other-keys)
+              (mkdir (string-append (assoc-ref outputs "out") "/libexec"))))
           ;; patch XDG_DATA_DIRS
           (add-after 'glib-or-gtk-wrap 'wrap-typelib
             (lambda* (#:key outputs inputs #:allow-other-keys)
@@ -161,3 +193,274 @@ several applets.  The applets supplied here include the Workspace Switcher,
 the Window List, the Window Selector, the Notification Area, the Clock and the
 infamous 'Wanda the Fish'.")
     (license (list license:gpl2+ license:lgpl2.0+))))
+
+(define-public engrampa
+  (package
+    (name "engrampa")
+    (version "1.28.2")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/"
+                           (version-major+minor version)
+                           "/"
+                           "engrampa-"
+                           version
+                           ".tar.xz"))
+       (sha256
+        (base32 "1vq9mi87c0agfwysrbki155835xgv5qm2cbzld1qigs56z17g68y"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     `(#:configure-flags (list "--disable-schemas-compile"
+                               "--disable-run-in-place" "--enable-magic"
+                               "--enable-packagekit"
+                               (string-append "--with-cajadir="
+                                              (assoc-ref %outputs "out")
+                                              "/lib/caja/extensions-2.0/"))
+       #:phases (modify-phases %standard-phases
+                  (add-before 'install 'skip-gtk-update-icon-cache
+                    ;; Don't create 'icon-theme.cache'.
+                    (lambda _
+                      (substitute* "data/Makefile"
+                        (("gtk-update-icon-cache")
+                         "true")) #t)))))
+    (native-inputs `(("gettext" ,gettext-minimal)
+                     ("gtk-doc" ,gtk-doc/stable)
+                     ("intltool" ,intltool)
+                     ("pkg-config" ,pkg-config)
+                     ("yelp-tools" ,yelp-tools)))
+    (inputs (list caja
+                  file
+                  glib
+                  gtk+
+                  (librsvg-for-system)
+                  json-glib
+                  libcanberra
+                  libx11
+                  libsm
+                  packagekit
+                  pango))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Archive Manager for MATE")
+    (description "Engrampa is the archive manager for the MATE Desktop.")
+    (license license:gpl2)))
+
+(define-public atril
+  (package
+    (name "atril")
+    (version "1.28.1")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/"
+                           (version-major+minor version)
+                           "/"
+                           name
+                           "-"
+                           version
+                           ".tar.xz"))
+       (sha256
+        (base32 "0ghrx1nhjjs016swj0qy88azgmvas1478xi3xwnxbspkg4lz9i3l"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     `(#:configure-flags (list (string-append "--with-openjpeg="
+                                              (assoc-ref %build-inputs
+                                                         "openjpeg"))
+                               "--enable-introspection"
+                               "--disable-schemas-compile"
+                               ;; FIXME: Enable build of Caja extensions.
+                               "--disable-caja")
+       #:tests? #f
+       #:phases (modify-phases %standard-phases
+                  (add-after 'unpack 'fix-mathjax-path
+                    (lambda _
+                      (let* ((mathjax (assoc-ref %build-inputs "js-mathjax"))
+                             (mathjax-path (string-append mathjax
+                                            "/share/javascript/mathjax")))
+                        (substitute* "backend/epub/epub-document.c"
+                          (("/usr/share/javascript/mathjax")
+                           mathjax-path))) #t))
+                  (add-after 'unpack 'fix-introspection-install-dir
+                    (lambda* (#:key outputs #:allow-other-keys)
+                      (let ((out (assoc-ref outputs "out")))
+                        (substitute* '("configure")
+                          (("\\$\\(\\$PKG_CONFIG --variable=girdir gobject-introspection-1.0\\)")
+                           (string-append "\"" out "/share/gir-1.0/\""))
+                          (("\\$\\(\\$PKG_CONFIG --variable=typelibdir gobject-introspection-1.0\\)")
+                           (string-append out "/lib/girepository-1.0/"))) #t)))
+                  (add-before 'install 'skip-gtk-update-icon-cache
+                    ;; Don't create 'icon-theme.cache'.
+                    (lambda _
+                      (substitute* "data/Makefile"
+                        (("gtk-update-icon-cache")
+                         "true")) #t)))))
+    (native-inputs (list pkg-config
+                         intltool
+                         itstool
+                         yelp-tools
+                         (list glib "bin")
+                         gobject-introspection
+                         gtk-doc/stable
+                         texlive-bin ;synctex
+                         libxml2
+                         zlib))
+    (inputs (list at-spi2-core
+                  cairo
+                  caja
+                  dconf
+                  dbus
+                  dbus-glib
+                  djvulibre
+                  fontconfig
+                  freetype
+                  ghostscript
+                  glib
+                  gtk+
+                  js-mathjax
+                  libcanberra
+                  libsecret
+                  libspectre
+                  libtiff
+                  libx11
+                  libice
+                  libsm
+                  libgxps
+                  libjpeg-turbo
+                  libxml2
+                  mate-desktop
+                  python-dogtail
+                  shared-mime-info
+                  gdk-pixbuf
+                  gsettings-desktop-schemas
+                  libgnome-keyring
+                  libarchive
+                  marco
+                  openjpeg
+                  pango
+                  ;; texlive
+                  ;; TODO:
+                  ;; Build libkpathsea as a shared library for DVI support.
+                  ;; ("libkpathsea" ,texlive-bin)
+                  poppler
+                  startup-notification
+                  webkitgtk-for-gtk3))
+    (home-page "https://mate-desktop.org")
+    (synopsis "Document viewer for Mate")
+    (description
+     "Atril is a simple multi-page document viewer.  It can display and print
+@acronym{PostScript, PS}, @acronym{Encapsulated PostScript EPS}, DJVU, DVI, XPS
+and @acronym{Portable Document Format PDF} files.  When supported by the
+document, it also allows searching for text, copying text to the clipboard,
+hypertext navigation, and table-of-contents bookmarks.")
+    (license license:gpl2)))
+
+(define-public mate-applets
+  (package
+    (name "mate-applets")
+    (version "1.28.1")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/"
+                           (version-major+minor version)
+                           "/"
+                           "mate-applets-"
+                           version
+                           ".tar.xz"))
+       (sha256
+        (base32 "0bkyzapds1ha8cvbnl7nc0qjbv5f4cy019i2sdrb3ibxa90p35m5"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list "--enable-suid=no" "--enable-in-process")
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-before 'glib-or-gtk-wrap 'create-missing-dir
+            (lambda* (#:key outputs #:allow-other-keys)
+              (mkdir (string-append (assoc-ref outputs "out") "/libexec")))))))
+    (native-inputs (list pkg-config
+                         intltool ;Listed in Debian package (but not in upstream build.yml)
+                         itstool ;Listed in upstream build.yml
+                         libxslt
+                         yelp-tools
+                         scrollkeeper
+                         gettext-minimal
+                         docbook-xml
+                         gobject-introspection))
+    (inputs (list at-spi2-core
+                  dbus
+                  dbus-glib
+                  glib
+                  gucharmap
+                  gtk+
+                  gtksourceview-4
+                  libgtop
+                  libmateweather
+                  libnl
+                  libnotify
+                  libsoup-minimal-2 ;Listed in upstream configure.ac
+                  libx11
+                  libxml2
+                  libwnck
+                  mate-desktop
+                  mate-menus
+                  mate-panel
+                  pango
+                  polkit ;either polkit or setuid
+                  upower
+                  wireless-tools))
+    (propagated-inputs (list python-pygobject))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Various applets for the MATE Panel")
+    (description
+     "Mate-applets includes various small applications for Mate-panel:
+
+@enumerate
+@item accessx-status: indicates keyboard accessibility settings,
+including the current state of the keyboard, if those features are in use.
+@item Battstat: monitors the power subsystem on a laptop.
+@item Character palette: provides a convenient way to access
+non-standard characters, such as accented characters,
+mathematical symbols, special symbols, and punctuation marks.
+@item MATE CPUFreq Applet: CPU frequency scaling monitor
+@item Drivemount: lets you mount and unmount drives and file systems.
+@item Geyes: pair of eyes which follow the mouse pointer around the screen.
+@item Keyboard layout switcher: lets you assign different keyboard
+layouts for different locales.
+@item Modem Monitor: monitors the modem.
+@item Invest: downloads current stock quotes from the Internet and
+displays the quotes in a scrolling display in the applet. The
+applet downloads the stock information from Yahoo! Finance.
+@item System monitor: CPU, memory, network, swap file and resource.
+@item Trash: lets you drag items to the trash folder.
+@item Weather report: downloads weather information from the
+U.S National Weather Service (NWS) servers, including the
+Interactive Weather Information Network (IWIN).
+@end enumerate
+")
+    (license (list license:gpl2+ license:lgpl2.0+ license:gpl3+))))
+
+(define-public mate-themes
+  (package
+    (name "mate-themes")
+    (version "3.22.26")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/themes/"
+                           (version-major+minor version) "/mate-themes-"
+                           version ".tar.xz"))
+       (sha256
+        (base32 "1msyfpmhgijzr2i4jhzmrf9ilhlq994havbmrzqp6fzbck9qjki2"))))
+    (build-system gnu-build-system)
+    (native-inputs (list pkg-config intltool gdk-pixbuf ;gdk-pixbuf+svg isn't needed
+                         gtk+-2))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Official themes for the MATE desktop")
+    (description
+     "This package includes the standard themes for the MATE desktop, for
+example Menta, TraditionalOk, GreenLaguna or BlackMate.  This package has
+themes for both gtk+-2 and gtk+-3.")
+    (license (list license:lgpl2.1+ license:cc-by-sa3.0 license:gpl3+
+                   license:gpl2+))))
