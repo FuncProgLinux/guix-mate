@@ -51,7 +51,13 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
-  #:use-module (gnu packages xorg))
+  #:use-module (gnu packages xorg)
+
+  ;; Include this repository files
+  #:use-module (guix-mate packages brisk-menu)
+  #:use-module (guix-mate packages mate-menu)
+  #:use-module (guix-mate packages mate-tweak)
+  #:use-module (guix-mate packages mate-window-applets))
 
 (define-public mate-sensors-applet
   (package
@@ -106,7 +112,7 @@ panel, these include CPU temperature, fan speeds and voltage reading under
 Gnu/Linux.")
     (license license:gpl2+)))
 
-(define-public mate-panel
+(define-public mate-panel-1.28.4
   (package
     (name "mate-panel")
     (version "1.28.4")
@@ -194,7 +200,7 @@ the Window List, the Window Selector, the Notification Area, the Clock and the
 infamous 'Wanda the Fish'.")
     (license (list license:gpl2+ license:lgpl2.0+))))
 
-(define-public engrampa
+(define-public engrampa-1.28.2
   (package
     (name "engrampa")
     (version "1.28.2")
@@ -245,7 +251,7 @@ infamous 'Wanda the Fish'.")
     (description "Engrampa is the archive manager for the MATE Desktop.")
     (license license:gpl2)))
 
-(define-public atril
+(define-public atril-1.28.1
   (package
     (name "atril")
     (version "1.28.1")
@@ -354,7 +360,7 @@ document, it also allows searching for text, copying text to the clipboard,
 hypertext navigation, and table-of-contents bookmarks.")
     (license license:gpl2)))
 
-(define-public mate-applets
+(define-public mate-applets-1.28.1
   (package
     (name "mate-applets")
     (version "1.28.1")
@@ -441,7 +447,7 @@ Interactive Weather Information Network (IWIN).
 ")
     (license (list license:gpl2+ license:lgpl2.0+ license:gpl3+))))
 
-(define-public mate-themes
+(define-public mate-themes-3.22.26
   (package
     (name "mate-themes")
     (version "3.22.26")
@@ -464,3 +470,18 @@ example Menta, TraditionalOk, GreenLaguna or BlackMate.  This package has
 themes for both gtk+-2 and gtk+-3.")
     (license (list license:lgpl2.1+ license:cc-by-sa3.0 license:gpl3+
                    license:gpl2+))))
+
+(define-public mate-extra
+  (package
+    (inherit mate)
+    (version (package-version mate-desktop))
+    (inputs (modify-inputs (package-inputs mate)
+              (replace "atril" atril-1.28.1)
+              (replace "engrampa" engrampa-1.28.2)
+              (replace "mate-themes" mate-themes-3.22.26)
+              (replace "mate-applets" mate-applets-1.28.1)
+              (replace "mate-panel" mate-panel-1.28.4)
+              (append brisk-menu)
+              (append mate-menu)
+              (append mate-tweak)
+              (append mate-window-applets)))))
