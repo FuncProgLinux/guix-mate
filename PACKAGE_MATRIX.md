@@ -41,20 +41,6 @@ about this particular channel activity.
 | ------- | ------------------------------- | ---------------- | ------------------- |
 | `plank` | https://github.com/ricotz/plank | ❌ Not started   | ❌                  |
 
-## Ubuntu MATE Packages
-
-| Package               | Upstream URL                                       | Packaging status                              | Upstreamed to Guix? |
-| --------------------- | -------------------------------------------------- | --------------------------------------------- | ------------------- |
-| `yaru-mate`           | -                                                  | - Already on GUIX before this channel existed | ✅                  |
-| `brisk-menu`          | https://codeberg.org/guix-mate/brisk-menu-guix     | ✅ Completed                                  | ⛔️ Won't upstream*  |
-| `mate-window-applets` | https://github.com/ubuntu-mate/mate-window-applets | ✅ Completed                                  | ❌                  |
-| `mate-hud`            | https://github.com/ubuntu-mate/mate-hud            | ❌ Not started                                | ❌                  |
-| `mate-dock-applet`    | https://github.com/ubuntu-mate/mate-dock-applet    | ✅ Completed                                  | ❌                  |
-| `indicator-emojitwo`  | https://github.com/ubuntu-mate/indicator-emojitwo  | ❌ Not started                                | ❌                  |
-| `ubuntu-mate-artwork` | https://github.com/ubuntu-mate/ubuntu-mate-artwork | ❌ Not started                                | ❌                  |
-| `mate-tweak`          | https://github.com/ubuntu-mate/mate-tweak          | ✅ Completed                                  | ❌                  |
-| `mate-menu`           | https://github.com/ubuntu-mate/mate-menu           | ✅ Completed                                  | ⛔️ Won't upstream*  |
-
 ## Trisquel GNU/Linux-libre Packages
 
 | Package           | Upstream URL                                            | Packaging status | Upstreamed to Guix? |
@@ -70,6 +56,7 @@ about this particular channel activity.
 | `caja-actions`             | https://github.com/mate-desktop/caja-actions             | ❌ Not started   | ❌                         |
 | `python-caja`              | https://github.com/mate-desktop/python-caja              | ✅ Completed     | ✅ `gnu/packages/mate.scm` |
 | `mate-notification-daemon` | https://github.com/mate-desktop/mate-notification-daemon | 🛠️ In progress   | ❌                         |
+| `mate-sensors-applet`      | https://github.com/mate-desktop/mate-sensors-applet      | ✅ Completed     | ❌                         |
 
 #### *won't upstream notices
 

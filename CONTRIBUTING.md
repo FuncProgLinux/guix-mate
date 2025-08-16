@@ -59,3 +59,25 @@ graph TD
     D -- Upstream Accepts --> E[[Accepted in Official Guix Upstream]];
     D -- Upstream Rejects (for any reason) --> F[[Rejected by Upstream & Maintained in Guix MATE]];
 ```
+
+## Contributing environment
+
+If you wish to replicate the development environment:
+
+1. Clone the repository, best if done in `~/src/guix-mate`
+2. Enter a shell using `make dev` this shell is preconfigured with tools to
+   develop this Guix channel.
+3. Extend your scheme editing experience by running
+   `./pre-inst-env -- guix repl --listen=tcp:37146` on a separate terminal to
+   enhance emacs with `geiser-connect`
+4. Test builds with `./pre-inst-env guix build <package>`
+5. Test installation with `./pre-inst-env guix install <package>`
+6. Style using `make-fmt`.
+7. Hackers, you'll be free.
+8. Replicate on a new branch to send patches :)
+
+## Channel scope
+
+This channel doesn't add non-related software like other tools or binaries aside
+of the popular MATE Desktop implementations. We will maintain the upstreamed
+packages on GNU Guix and the extra sources here.

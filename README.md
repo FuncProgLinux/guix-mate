@@ -2,6 +2,8 @@
 
 # GUIX MATE 🧉
 
+Guix channel for MATE Desktop extra software.
+
 This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 
 - Tired of your favorite GTK applications looking like `libadwaita`? We've got
@@ -18,23 +20,6 @@ Return to the comfy _traditional_ desktop everyone loved in the 2000's.
 - Updates at least once per week/month, there's much room for improvement
 - Rebrand if possible to improve user experience and integration with GUIX
 - Upstream packages to GNU Guix to benefit trisquel users migrating
-
-## Usage (Remote)
-
-To install this channel you must paste the following on your `channels.scm`
-file:
-
-```scheme
-(channel
-    (name 'guix-mate)
-    (branch "main")
-    (url "https://codeberg.org/guix-mate/guix-mate")
-    (introduction
-            (make-channel-introduction
-                    "70e843bef537d74d43744d4abc94691adc4e4197"
-                    (openpgp-fingerprint
-                    "DF6F 2589 1002 1FB5 29DB DBF1 E495 97E6 5890 833D"))))
-```
 
 ## Contributing
 
