@@ -513,6 +513,16 @@ it will expose the user's $HOME/Public directory on a webdav server.")
     (inputs (modify-inputs (package-inputs mate)
               (replace "python" python)))))
 
+(define-public mate-polkit-1.28.1-1
+  (package
+    (inherit mate-polkit)
+    (arguments
+     (substitute-keyword-arguments (package-arguments mate-polkit)
+       ((#:configure-flags flags
+         #~(list))
+        #~(list (string-append "--libexecdir="
+                               #$output "/libexec")))))))
+
 (define-public mate-extra
   (package
     (inherit mate)
