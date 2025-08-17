@@ -642,7 +642,7 @@ deliver notifications to the user.")
               (replace "pluma" pluma-1.28.0-1)
               (replace "mate-settings-daemon" mate-settings-daemon-1.28.0-1)
               (replace "mate-media" mate-media-1.28.1-1)
-              (replate "mate-control-center" mate-control-center-1.28.0-1)
+              (replace "mate-control-center" mate-control-center-1.28.0-1)
               ;; Ubuntu MATE Packages
               (append brisk-menu)
               (append mate-menu)
