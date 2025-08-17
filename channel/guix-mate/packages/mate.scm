@@ -572,6 +572,37 @@ deliver notifications to the user.")
         #~(list (string-append "--libexecdir="
                                #$output "/libexec")))))))
 
+(define-public mate-settings-daemon-1.28.0-1
+  (package
+    (inherit mate-settings-daemon)
+    (arguments
+     (substitute-keyword-arguments (package-arguments mate-settings-daemon)
+       ((#:configure-flags flags
+         #~(list))
+        #~(list (string-append "--libexecdir="
+                               #$output "/libexec") "--enable-polkit"
+                "--enable-pulse"))))))
+
+(define-public mate-media-1.28.1-1
+  (package
+    (inherit mate-media)
+    (arguments
+     (substitute-keyword-arguments (package-arguments mate-media)
+       ((#:configure-flags flags
+         #~(list))
+        #~(list (string-append "--libexecdir="
+                               #$output "/libexec")))))))
+
+(define-public mate-control-center-1.28.1-1
+  (package
+    (inherit mate-control-center)
+    (arguments
+     (substitute-keyword-arguments (package-arguments mate-control-center)
+       ((#:configure-flags flags
+         #~(list))
+        #~(list (string-append "--sbindir="
+                               #$output "/sbin")))))))
+
 (define-public pluma-1.28.0-1
   (package
     (inherit pluma)
@@ -609,6 +640,8 @@ deliver notifications to the user.")
               (replace "mate-menus" mate-menus-1.28.0-1)
               (replace "mate-power-manager" mate-power-manager-1.28.1-1)
               (replace "pluma" pluma-1.28.0-1)
+              (replace "mate-settings-daemon" mate-settings-daemon-1.28.0-1)
+              (replace "mate-media" mate-media-1.28.1-1)
               ;; Ubuntu MATE Packages
               (append brisk-menu)
               (append mate-menu)
