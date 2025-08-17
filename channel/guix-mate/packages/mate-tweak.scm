@@ -8,6 +8,7 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages terminals)
   #:use-module ((guix licenses)
                 #:prefix license:)
   #:use-module (guix gexp)
@@ -110,6 +111,7 @@
                   libnotify
                   glib
                   gdk-pixbuf
+                  tilda
                   mate-desktop
                   mate-applets
                   mate-panel
