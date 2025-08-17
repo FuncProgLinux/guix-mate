@@ -509,6 +509,43 @@ across networks on the MATE Desktop. If the file-sharing option is enabled
 it will expose the user's $HOME/Public directory on a webdav server.")
     (license license:gpl2+)))
 
+(define-public mate-notification-daemon
+  (package
+    (name "mate-notification-daemon")
+    (version "1.28.3")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/"
+                           (version-major+minor version)
+                           "/"
+                           "mate-notification-daemon-"
+                           version
+                           ".tar.xz"))
+       (sha256
+        (base32 "04zlmli3kv80h7fpf0xlxm0hkf238gj5hib4qb6bjxczzyqyq370"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list (string-append "--libexec="
+                             #$output "/libexec"))))
+    (native-inputs (list pkg-config gettext-minimal libxml2))
+    (inputs (list gtk+
+                  dbus-glib
+                  libwnck
+                  libnotify
+                  libcanberra
+                  mate-desktop
+                  mate-panel
+                  hicolor-icon-theme))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Notification daemon for MATE")
+    (description
+     "This MATE Desktop component is meant to run on the background and
+deliver notifications to the user.")
+    (license license:gpl2+)))
+
 (define-public mate-menus-1.28.0-1
   (package
     (inherit mate-menus)
@@ -535,6 +572,8 @@ it will expose the user's $HOME/Public directory on a webdav server.")
               (replace "mate-themes" mate-themes-3.22.26)
               (replace "mate-applets" mate-applets-1.28.1)
               (replace "mate-panel" mate-panel-1.28.4)
+              (replace "mate-polkit" mate-polkit-1.28.1-1)
+              (replace "mate-menus" mate-menus-1.28.0-1)
               ;; Ubuntu MATE Packages
               (append brisk-menu)
               (append mate-menu)
@@ -543,4 +582,5 @@ it will expose the user's $HOME/Public directory on a webdav server.")
 
               ;; Upstream MATE packages
               (append mate-sensors-applet)
+              (append mate-notification-daemon)
               (append mate-user-share)))))
