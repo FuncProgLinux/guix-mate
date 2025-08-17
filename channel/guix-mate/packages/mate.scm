@@ -562,6 +562,39 @@ deliver notifications to the user.")
         #~(list (string-append "--libexecdir="
                                #$output "/libexec")))))))
 
+(define-public mate-power-manager-1.28.1-1
+  (package
+    (inherit mate-power-manager)
+    (arguments
+     (substitute-keyword-arguments (package-arguments mate-power-manager)
+       ((#:configure-flags flags
+         #~(list))
+        #~(list (string-append "--libexecdir="
+                               #$output "/libexec")))))))
+
+(define-public pluma-1.28.0-1
+  (package
+    (inherit pluma)
+    (inputs (modify-inputs (package-inputs mate)
+              (replace "python" python)
+              (append python-wrapper)
+              (append enchant)
+              (append iso-codes)
+              (append libxml2)
+              (append glib)
+              (append gtk+)
+              (append libsm)
+              (append libpeas)
+              (append gtksourceview-4)
+              (append mate-desktop)
+              (append startup-notification)))
+    (arguments
+     (substitute-keyword-arguments (package-arguments pluma)
+       ((#:configure-flags flags
+         #~(list))
+        #~(list (string-append "--libexecdir="
+                               #$output "/libexec") "--enable-python"))))))
+
 (define-public mate-extra
   (package
     (inherit mate)
@@ -574,6 +607,8 @@ deliver notifications to the user.")
               (replace "mate-panel" mate-panel-1.28.4)
               (replace "mate-polkit" mate-polkit-1.28.1-1)
               (replace "mate-menus" mate-menus-1.28.0-1)
+              (replace "mate-power-manager" mate-power-manager-1.28.1-1)
+              (replace "pluma" pluma-1.28.0-1)
               ;; Ubuntu MATE Packages
               (append brisk-menu)
               (append mate-menu)
