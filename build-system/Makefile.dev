@@ -27,6 +27,10 @@ nrepl: ## Starts nrepl-server for Emacs Arei
 	@guix shell $(SCHEME_ENV_PKGS) -- \
 	guile -c '((@ (ares server) run-nrepl-server))'
 
+repl: ## Starts a new guix repl
+	@echo "==> [GUIX-MATE/DEV]: Starting Guix REPL!"
+	./pre-inst-env -- guix repl -L ./channel --listen=tcp:37146
+
 dev: ## Starts a development guix shell for this channel
 	@echo "==> [GUIX-MATE/DEV]: Spinning up a development environment..."
 	@guix shell -m $(DEV_ENV_MANIFEST)
