@@ -13,6 +13,7 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages attr)
   #:use-module (gnu packages code)
+  #:use-module (gnu packages dotnet)
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages cmake)
@@ -52,3 +53,40 @@
      "Ayatana IDO provides custom GTK menu widgets for
 Ayatana System Indicators. This is a base dependency for all indicators.")
     (license (list license:lgpl2.0+ license:lgpl3+))))
+
+(define-public libayatana-indicator
+  (package
+    (name "libayatana-indicator")
+    (version "0.9.4")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/AyatanaIndicators/libayatana-indicator")
+             (commit "0.9.4")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "1c0pymlpxabh7iackv6i47gh81b7pxx194r07lpbxnz5x1kjxj1s"))))
+    (build-system cmake-build-system)
+    (arguments
+     (list
+      #:tests? #f
+      #:validate-runpath? #f
+      ;; #:out-of-source? #t
+      #:imported-modules `(,@%cmake-build-system-modules (guix build
+                                                          glib-or-gtk-build-system))
+      #:configure-flags
+      #~(list (string-append "-DCMAKE_INSTALL_PREFIX="
+                             #$output "/"))
+      #:modules '((guix build cmake-build-system)
+                  ((guix build glib-or-gtk-build-system)
+                   #:prefix glib-or-gtk:)
+                  (guix build utils))))
+    (native-inputs (list cmake gobject-introspection pkg-config))
+    (inputs (list gtk+
+                  `(,glib "bin") gtk-doc))
+    (propagated-inputs (list ayatana-ido))
+    (home-page "https://github.com/AyatanaIndicators")
+    (synopsis "Ayatana Indicators Shared Library")
+    (description "Ayatana Indicators shared library built with ayatana-ido")
+    (license license:gpl3+)))
