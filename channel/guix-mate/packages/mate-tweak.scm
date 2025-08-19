@@ -1,5 +1,6 @@
 (define-module (guix-mate packages mate-tweak)
   #:use-module (gnu packages)
+  #:use-module (gnu packages compton)
   #:use-module (gnu packages gettext)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages gnome)
@@ -117,7 +118,11 @@
                   (("/usr/share/mate-panel/layouts")
                    "/run/current-system/profile/share/mate-panel/layouts")
                   (("/usr/lib")
-                   "/lib"))
+                   "/run/current-system/profile/lib")
+                  (("/usr/share/mate-panel/")
+                   "/run/current-system/profile/share/mate-panel/")
+                  (("/usr/bin")
+                   "/run/current-system/profile/bin/"))
 
                 ))))))
     (native-inputs `(("python-wrapper" ,python-wrapper)
@@ -137,6 +142,7 @@
                   gsettings-desktop-schemas
                   libmatekbd
                   mate-session-manager
+                  picom
                   python-pygobject
                   python-configobj
                   python-psutil
