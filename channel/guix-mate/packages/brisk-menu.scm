@@ -43,8 +43,8 @@
                 (substitute* (find-files (string-append out
                                           "/share/dbus-1/services")
                               "\\org.mate.panel.applet.BriskMenuFactory.service$")
-                  (("Location=.*")
-                   (string-append "Location="
+                  (("Exec=.*")
+                   (string-append "Exec="
                     "/run/current-system/profile/libexec/brisk-menu" "\n")))
                 ;; Fix the applet desktop file
                 (substitute* (find-files (string-append out
