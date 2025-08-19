@@ -45,16 +45,14 @@
                               "\\org.mate.panel.applet.BriskMenuFactory.service$")
                   (("Exec=.*")
                    (string-append "Exec="
-                    "/run/current-system/profile/libexec/.brisk-menu-real"
-                    "\n")))
+                    "/run/current-system/profile/libexec/.brisk-menu" "\n")))
                 ;; Fix the applet desktop file
                 (substitute* (find-files (string-append out
                                           "/share/mate-panel/applets")
                               "\\com.solus_project.brisk.BriskMenu.mate-panel-applet$")
                   (("Location=.*")
                    (string-append "Location="
-                    "/run/current-system/profile/libexec/.brisk-menu-real"
-                    "\n")))))))))
+                    "/run/current-system/profile/libexec/brisk-menu" "\n")))))))))
     (native-inputs (list pkg-config
                          intltool
                          itstool

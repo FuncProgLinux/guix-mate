@@ -592,7 +592,8 @@ deliver notifications to the user.")
        ((#:configure-flags flags
          #~(list))
         #~(list (string-append "--libexecdir="
-                               #$output "/libexec") "--enable-polkit"
+                               #$output "/libexec")
+                "--enable-polkit"
                 "--enable-pulse"))))))
 
 (define-public mate-media-1.28.1-1
