@@ -33,7 +33,8 @@
         (base32 "1dk1pyay6zz9xdnilchswmvy2nrdgrqfcw7xbz8af48wqivrhm60"))))
     (build-system meson-build-system)
     (arguments
-     '(#:glib-or-gtk? #t))
+     (list
+      #:glib-or-gtk? #t))
     (native-inputs (list pkg-config
                          intltool
                          itstool

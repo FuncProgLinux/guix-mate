@@ -165,7 +165,26 @@ Gnu/Linux.")
                 `("GI_TYPELIB_PATH" ":" prefix
                   (,(getenv "GI_TYPELIB_PATH")))
                 `("XDG_DATA_DIRS" ":" prefix
-                  (,(string-append #$(this-package-input "marco") "/share")))))))))
+                  (,(string-append #$(this-package-input "marco") "/share"))))))
+
+          ;; Post install path fixups
+          (add-after 'install 'substitute-postinstall-paths
+            (lambda* (#:key outputs #:allow-other-keys)
+              (let* ((out (assoc-ref outputs "out"))
+                     (base-dir (string-append out "/share/mate-panel/layouts/"))
+                     (files-to-patch (list (string-append base-dir
+                                                          "fedora.layout")
+                                           (string-append base-dir
+                                                          "ubuntu.layout")
+                                           (string-append base-dir
+                                                          "mageia.layout")))
+                     (old-apps-path "/usr/share/applications")
+                     (new-apps-path
+                      "/run/current-system/profile/share/applications"))
+                (for-each (lambda (file)
+                            (substitute* file
+                              ((old-apps-path)
+                               new-apps-path))) files-to-patch)))))))
     (native-inputs (list pkg-config intltool itstool xtrans
                          gobject-introspection))
     (inputs (list dconf
@@ -491,9 +510,7 @@ themes for both gtk+-2 and gtk+-3.")
      (list
       #:configure-flags
       #~(list (string-append "--with-cajadir="
-                             #$output "/lib/caja/extensions-2.0/")
-              (string-append "--libexec="
-                             #$output "/libexec"))))
+                             #$output "/lib/caja/extensions-2.0/"))))
     (native-inputs (list pkg-config gettext-minimal itstool libxml2))
     (inputs (list gtk+
                   caja
@@ -525,11 +542,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
        (sha256
         (base32 "04zlmli3kv80h7fpf0xlxm0hkf238gj5hib4qb6bjxczzyqyq370"))))
     (build-system glib-or-gtk-build-system)
-    (arguments
-     (list
-      #:configure-flags
-      #~(list (string-append "--libexec="
-                             #$output "/libexec"))))
     (native-inputs (list pkg-config gettext-minimal libxml2))
     (inputs (list gtk+
                   dbus-glib

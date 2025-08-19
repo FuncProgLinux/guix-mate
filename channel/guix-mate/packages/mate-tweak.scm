@@ -82,7 +82,13 @@
                 ;; Remove the "{prefix}"
                 (substitute* "setup.py"
                   (("\\{prefix\\}/")
-                   "")))))
+                   ""))
+
+                (substitute* (find-files "." "\\mate-tweak")
+                  (("'/','usr','share'")
+                   (string-append "'" output "','share'")))
+
+                )))
 
           ;; Add GI_TYPELIB_PATH to the final library
           (add-after 'wrap 'gi-wrap
@@ -94,7 +100,7 @@
 
           ;; Post-installation path fixes. Guix doesn't have "sw" unlike
           ;; nix, but we don't need it anyways
-          (add-after 'install 'substitute-usr-paths
+          (add-after 'install 'substitute-postinstall-paths
             (lambda* (#:key outputs inputs #:allow-other-keys)
               (let* ((out (assoc-ref outputs "out"))
                      (marco (assoc-ref inputs "marco"))
@@ -102,7 +108,18 @@
                 (substitute* (find-files (string-append out "/bin")
                                          "\\mate-tweak$")
                   (("/usr/bin/marco")
-                   (string-append marco "/bin/marco")))))))))
+                   (string-append marco "/bin/marco")))
+
+                (substitute* (find-files (string-append out "/bin")
+                                         "\\mate-tweak$")
+                  (("/usr/share/applications")
+                   "/run/current-system/profile/share/applications")
+                  (("/usr/share/mate-panel/layouts")
+                   "/run/current-system/profile/share/mate-panel/layouts")
+                  (("/usr/lib")
+                   "/lib"))
+
+                ))))))
     (native-inputs `(("python-wrapper" ,python-wrapper)
                      ("intltool" ,intltool)
                      ("python-distutils-extra" ,python-distutils-extra)
