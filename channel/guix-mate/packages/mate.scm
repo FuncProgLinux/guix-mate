@@ -190,6 +190,7 @@ Gnu/Linux.")
     (inputs (list dconf
                   dconf-editor
                   cairo
+                  dbus
                   dbus-glib
                   gtk-layer-shell
                   gtk+
@@ -216,7 +217,11 @@ Gnu/Linux.")
 several applets.  The applets supplied here include the Workspace Switcher,
 the Window List, the Window Selector, the Notification Area, the Clock and the
 infamous 'Wanda the Fish'.")
-    (license (list license:gpl2+ license:lgpl2.0+))))
+    (license (list license:gpl2+ license:lgpl2.0+))
+    (native-search-paths
+     (list (search-path-specification
+            (variable "XDG_DATA_DIRS")
+            (files '("share")))))))
 
 (define-public engrampa-1.28.2
   (package
@@ -464,7 +469,11 @@ U.S National Weather Service (NWS) servers, including the
 Interactive Weather Information Network (IWIN).
 @end enumerate
 ")
-    (license (list license:gpl2+ license:lgpl2.0+ license:gpl3+))))
+    (license (list license:gpl2+ license:lgpl2.0+ license:gpl3+))
+    (native-search-paths
+     (list (search-path-specification
+            (variable "XDG_DATA_DIRS")
+            (files '("share")))))))
 
 (define-public mate-themes-3.22.26
   (package
@@ -668,7 +677,6 @@ deliver notifications to the user.")
     (native-search-paths
      (append (package-native-search-paths mate-panel)
              (package-native-search-paths mate-applets)
-             (package-native-search-paths mate-polkit)
              (package-native-search-paths brisk-menu)
              (package-native-search-paths mate-menu)
              (package-native-search-paths mate-window-applets)))))
