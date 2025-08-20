@@ -13,18 +13,10 @@ This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 
 Return to the comfy _traditional_ desktop everyone loved in the 2000's.
 
-## Contributing
+## Usage
 
-Please see the [CONTRIBUTING](CONTRIBUTING.md) file for more details.
-
-## FAQ
-
-Please read [FAQ.md](FAQ.md)
-
-## Available software
-
-Consult the [package matrix document](PACKAGE_MATRIX.md) for more information
-about available software in this repository.
+Refer to this repository
+[wiki](https://codeberg.org/guix-mate/guix-mate/wiki/Home.md) for more details.
 
 ## Credits
 

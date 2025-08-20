@@ -7,7 +7,6 @@ all: help
 
 # === LOAD Makefiles
 include $(MAKE_DIR)/Makefile.dev
-include $(MAKE_DIR)/Makefile.docs
 include $(MAKE_DIR)/Makefile.fmt
 
 help:

@@ -8,7 +8,7 @@
                                                         "emacs-geiser"
                                                         "emacs-geiser-guile"
                                                         "emacs-paredit"
-                                                        "guile-lsp-server"
+                                                        "emacs-arei"
                                                         "make"
                                                         "perl"))
                              (package->development-manifest (specification->package
