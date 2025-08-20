@@ -13,16 +13,6 @@ This channel tries to improve your MATE Desktop experience in GNU GUIX systems.
 
 Return to the comfy _traditional_ desktop everyone loved in the 2000's.
 
-## Goals
-
-- Latest MATE Desktop experience. We offer a bleeding-edge `mate` package
-  variant.
-- Rival Ubuntu MATE on software available for the MATE desktop.
-- Patch upstream sources to remove `apt/dpkg` specific behavior
-- Updates at least once per week/month, there's much room for improvement
-- Rebrand if possible to improve user experience and integration with GUIX
-- Upstream packages to GNU Guix to benefit trisquel users migrating
-
 ## Contributing
 
 Please see the [CONTRIBUTING](CONTRIBUTING.md) file for more details.

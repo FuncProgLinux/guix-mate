@@ -592,8 +592,7 @@ deliver notifications to the user.")
        ((#:configure-flags flags
          #~(list))
         #~(list (string-append "--libexecdir="
-                               #$output "/libexec")
-                "--enable-polkit"
+                               #$output "/libexec") "--enable-polkit"
                 "--enable-pulse"))))))
 
 (define-public mate-media-1.28.1-1
@@ -665,4 +664,7 @@ deliver notifications to the user.")
               ;; Upstream MATE packages
               (append mate-sensors-applet)
               (append mate-notification-daemon)
-              (append mate-user-share)))))
+              (append mate-user-share)))
+    (native-search-paths
+     (append (package-native-search-paths mate-panel)
+             (package-native-search-paths mate-applets)))))

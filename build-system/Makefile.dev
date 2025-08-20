@@ -15,17 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# The packages to load for the Arei Scheme IDE
-SCHEME_ENV_PKGS="guile-next guile-ares-rs"
-
 # The location of the manifest file for this project
 DEV_ENV_MANIFEST="manifest.scm"
 
 .PHONY: nrepl
 nrepl: ## Starts nrepl-server for Emacs Arei
 	@echo "==> [GUIX-MATE/DEV]: Starting NREPL for Arei to listen..."
-	@guix shell $(SCHEME_ENV_PKGS) -- \
-	guile -c '((@ (ares server) run-nrepl-server))'
+	@guix shell -D guile-next guile-ares-rs --container -- \
+	guile -L ./channel -c '((@ (ares server) run-nrepl-server))'
 
 repl: ## Starts a new guix repl
 	@echo "==> [GUIX-MATE/DEV]: Starting Guix REPL!"
