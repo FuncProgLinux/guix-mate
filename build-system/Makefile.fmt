@@ -18,5 +18,5 @@
 .PHONY: fmt
 fmt: ## Format the Guile Scheme source code of this repostory
 	@echo "==> [GUIX-MATE/FMT]: Formatting source code..."
-	find -type f -name "*.scm" -print0 | xargs -n 1 -0 guix style -f
+	perl ./etc/pfmt.pl
 	@echo "==> [GUIX-MATE/FMT]: Finished formatting source code!"

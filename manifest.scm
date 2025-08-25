@@ -10,6 +10,9 @@
                                                         "emacs-paredit"
                                                         "emacs-arei"
                                                         "make"
-                                                        "perl"))
+                                                        "perl"
+                                                        "perl-critic"
+                                                        "perltidy"
+                                                        "pls"))
                              (package->development-manifest (specification->package
                                                              "git"))))

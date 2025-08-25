@@ -32,7 +32,8 @@ use constant {
               RESET => "\e[0m"
 };
 
-our $VERSION = 1.0.0;
+our $VERSION = version->declare("v1.0.0");
+
 
 my $help = 0;
 my $verbose_help = 0;
