@@ -162,10 +162,10 @@ Gnu/Linux.")
             (lambda* (#:key outputs inputs #:allow-other-keys)
               (wrap-program (search-input-file outputs "/bin/mate-panel")
                 ;; For plugins.
-                `("GI_TYPELIB_PATH" ":" prefix
-                  (,(getenv "GI_TYPELIB_PATH")))
-                `("XDG_DATA_DIRS" ":" prefix
-                  (,(string-append #$(this-package-input "marco") "/share"))))))
+                `("MATE_PANEL_EXTRA_MODULES" ":" =
+                  ("/run/current-system/profile/libexec/"))
+                `("MATE_PANEL_APPLETS_DIR" ":" =
+                  ("/run/current-system/profile/share/mate-panel/applets/")))))
 
           ;; Post install path fixups
           (add-after 'install 'substitute-postinstall-paths
@@ -650,8 +650,8 @@ deliver notifications to the user.")
 (define-public mate-extra
   (package
     (inherit mate)
-    (version (package-version mate-desktop))
-    (inputs (modify-inputs (package-inputs mate)
+    (version (string-append (package-version mate-desktop) "-1"))
+    (inputs (modify-inputs (package-propagated-inputs mate)
               (replace "atril" atril-1.28.1)
               (replace "engrampa" engrampa-1.28.2)
               (replace "mate-themes" mate-themes-3.22.26)
@@ -673,10 +673,4 @@ deliver notifications to the user.")
               ;; Upstream MATE packages
               (append mate-sensors-applet)
               (append mate-notification-daemon)
-              (append mate-user-share)))
-    (native-search-paths
-     (append (package-native-search-paths mate-panel)
-             (package-native-search-paths mate-applets)
-             (package-native-search-paths brisk-menu)
-             (package-native-search-paths mate-menu)
-             (package-native-search-paths mate-window-applets)))))
+              (append mate-user-share)))))
