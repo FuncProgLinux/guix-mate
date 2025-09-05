@@ -651,7 +651,7 @@ deliver notifications to the user.")
   (package
     (inherit mate)
     (version (string-append (package-version mate-desktop) "-1"))
-    (inputs (modify-inputs (package-propagated-inputs mate)
+    (propagated-inputs (modify-inputs (package-propagated-inputs mate)
               (replace "atril" atril-1.28.1)
               (replace "engrampa" engrampa-1.28.2)
               (replace "mate-themes" mate-themes-3.22.26)
