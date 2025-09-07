@@ -21,7 +21,7 @@ GetOptions(
   'help|?' => \$help
 ) or pod2usage(2);
 
-pos2usage(-verbose =>, -exitval => 0) if $help;
+pod2usage(-verbose => 1, -exitval => 0) if $help;
 
 my $script_dir = dirname(realpath(__FILE__));
 
