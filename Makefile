@@ -8,6 +8,7 @@ all: help
 # === LOAD Makefiles
 include $(MAKE_DIR)/Makefile.dev
 include $(MAKE_DIR)/Makefile.fmt
+include $(MAKE_DIR)/Makefile.lint
 
 help:
 	@perl $(MAKE_DIR)/help.pl "$(MAKEFILE_LIST)"
