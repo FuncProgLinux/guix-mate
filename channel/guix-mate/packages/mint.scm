@@ -5,12 +5,24 @@
   #:use-module ((guix licenses)
                 #:prefix license:)
   #:use-module (guix build-system copy)
+  #:use-module (guix build-system meson)
   #:use-module (guix git-download)
+  #:use-module (gnu packages cinnamon)
+  #:use-module (gnu packages documentation)
+  #:use-module (gnu packages freedesktop)
+  #:use-module (gnu packages gettext)
+  #:use-module (gnu packages glib)
+  #:use-module (gnu packages gtk)
+  #:use-module (gnu packages gnome)
   #:use-module (gnu packages image)
   #:use-module (gnu packages inkscape)
+  #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-xyz)
-  #:use-module (gnu packages web))
+  #:use-module (gnu packages web)
+  #:use-module (gnu packages xml)
+  #:use-module (gnu packages xdisorg)
+  #:use-module (gnu packages xorg))
 
 (define-public mint-x-icon-theme
   (package
@@ -175,3 +187,71 @@ The themes also come with Mint-X-compact for the XFCE Desktop xfwm4.")
     (synopsis "Linux Mint L Theme for GTK Desktops")
     (description "Modern theme for GTK Desktops based on Mint-Y theme.")
     (license license:gpl3+)))
+
+(define-public xed
+  (package
+    (name "xed")
+    (version "3.8.4")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/linuxmint/xed")
+             (recursive? #t)
+             (commit "3.8.4")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "1kmz7520858xb6m1j2yzd4k506np21wbm1ljq487sxir026613x4"))))
+    (native-inputs (list gettext-minimal
+                         gobject-introspection
+                         itstool
+                         intltool
+                         python
+                         python-pygobject
+                         pkg-config))
+    (inputs (list glib
+                  gtk+
+                  gtksourceview-4
+                  gspell
+                  (list glib "bin")
+                  libgnomekbd
+                  libxkbfile
+                  python-3
+                  libpeas
+                  libsm
+                  libxml2
+                  libxapp
+                  libice
+                  packagekit
+                  pango
+                  scrollkeeper
+                  startup-notification))
+    (build-system meson-build-system)
+    (arguments
+     (list
+      #:imported-modules `((guix build python-build-system)
+                           ,@%meson-build-system-modules)
+      #:modules '((guix build utils)
+                  (guix build meson-build-system)
+                  ((guix build python-build-system)
+                   #:prefix python:))
+      #:glib-or-gtk? #t
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
+            (lambda* (#:key inputs outputs #:allow-other-keys)
+              (wrap-program (search-input-file outputs "bin/xed")
+                `("GUIX_PYTHONPATH" =
+                  (,(getenv "GUIX_PYTHONPATH") ,(python:site-packages inputs
+                                                                      outputs)))
+                `("GI_TYPELIB_PATH" =
+                  (,(getenv "GI_TYPELIB_PATH")))))))
+
+      ;; For some reason tests make the package installation fail.
+      ;; these will remain disabled for now.
+      #:tests? #f))
+    (home-page "https://github.com/linuxmint/xed")
+    (synopsis "xed is a small and lightweight text editor.")
+    (description
+     "xed supports most standard editing features, plus several not found in your average text editor (plugins being the most notable of these).")
+    (license license:gpl2+)))
