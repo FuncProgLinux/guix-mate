@@ -23,17 +23,15 @@ use POSIX;
 use Getopt::Long;
 use Pod::Usage;
 
-use constant {
-              RED => "\e[31m",
-              GREEN => "\e[32m",
-              YELLOW =>  "\e[33m",
-              BLUE => "\e[34m",
-              PURPLE => "\e[35m",
-              RESET => "\e[0m"
-};
+use Readonly;
+Readonly::Scalar my $RED => "\e[31m";
+Readonly::Scalar my $GREEN => "\e[32m";
+Readonly::Scalar my $YELLOW => "\e[33m";
+Readonly::Scalar my $BLUE => "\e[34m";
+Readonly::Scalar my $PURPLE => "\e[35m";
+Readonly::Scalar my $RESET => "\e[0m";
 
-our $VERSION = version->declare("v1.0.0");
-
+our $VERSION = version->declare("v1.1.0");
 
 my $help = 0;
 my $verbose_help = 0;
@@ -52,20 +50,21 @@ GNU Makefile. It should parse and pretty-print the comment annotations for you.
 
 =cut
 sub main_help($files) {
-  say YELLOW.
+  say $YELLOW.
     "=== [GUIX MATE".
-    GREEN.
+    $GREEN.
     " GNU MAKEFILE + PERL ".
-    YELLOW.
+    $YELLOW.
     " BUILD SYSTEM v1.0.0] ===".
-    RESET;
+    $RESET;
   say "";
   say "Usage:";
-  printf "  make %s[target]%s %s[variables]%s\n\n", BLUE, RESET, YELLOW, RESET;
+  printf "  make %s[target]%s %s[variables]%s\n\n", $BLUE, $RESET, $YELLOW, $RESET;
 
   help_targets($files);
   help_variables($files);
   help_examples();
+  return;
 }
 
 =pod
@@ -91,9 +90,10 @@ sub help_targets($files) {
     say "Target(s):";
     foreach my $line (sort @lines) {
         my ($target, $description) = $line =~ /^([a-zA-Z0-9._-]+):.*?##\s*(.*)$/;
-        printf "  %s%-30s%s%s\n", BLUE, $target, RESET, $description;
+        printf "  %s%-30s%s%s\n", $BLUE, $target, $RESET, $description;
     }
     say "";
+    return;
 }
 
 =pod
@@ -118,19 +118,21 @@ sub help_variables($files) {
                 my ($variable, $default) = $line =~ /^([a-zA-Z0-9_-]+) [:?!+]?= (.*)$/;
                 my ($description) = $prev_line =~ /^\s*#\s*(.*)$/;
                 $default //= '';  # Ensure $default is defined
-                printf "  %s%-30s%s%s %s(default: %s)%s\n", YELLOW, $variable, RESET, $description // '', PURPLE, $default, RESET;
+                printf "  %s%-30s%s%s %s(default: %s)%s\n", $YELLOW, $variable, $RESET, $description // '', $PURPLE, $default, $RESET;
             }
             $prev_line = $line;
         }
         close $fh;
     }
     say "";
+    return;
 }
 
 sub help_examples {
     say "Example(s):";
     say "  make dev";
-    say "  make fmt"
+    say "  make fmt";
+    return;
 }
 
 main_help($ARGV[0]);

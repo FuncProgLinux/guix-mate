@@ -12,6 +12,9 @@ severity = 4
 
 [Subroutines::ProhibitExcessComplexity]
 
+[InputOutput::RequireBriefOpen]
+lines = 10
+
 [Documentation::RequirePodSections]
 lib_sections = NAME | SYNOPSIS | DESCRIPTION | AUTHOR & COPYING
 

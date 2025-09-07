@@ -13,7 +13,7 @@ use Pod::Usage;
 use utf8;
 use open qw( :std :encoding(UTF-8));
 
-our $VERSION = 1.0.0;
+our $VERSION = version->declare("v1.1.0");
 
 my $help = 0;
 
@@ -35,10 +35,10 @@ unless (-d $channel_path) {
     die "The channel directory doesn't exist...wait what!?\n"
 }
 
-$ENV{GUILE_LOAD_PATH} = "$channel_path" . 
+local $ENV{GUILE_LOAD_PATH} = "$channel_path" . 
   ($ENV{GUILE_LOAD_PATH} ? ":" . $ENV{GUILE_LOAD_PATH} : "");
 
-$ENV{GUIX_PACKAGE_PATH} = "$channel_path" . 
+local $ENV{GUIX_PACKAGE_PATH} = "$channel_path" . 
   ($ENV{GUIX_PACKAGE_PATH} ? ":" . $ENV{GUIX_PACKAGE_PATH} : "");
 
 if (!@ARGV) {
