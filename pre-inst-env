@@ -21,7 +21,7 @@ GetOptions(
   'help|?' => \$help
 ) or pod2usage(2);
 
-pod2usage(-verbose => 1, -exitval => 0) if $help;
+pod2usage(-verbose => 2, -exitval => 0) if $help;
 
 my $script_dir = dirname(realpath(__FILE__));
 
@@ -53,6 +53,8 @@ exec { $ARGV[0] } @ARGV
 
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 pre-inst-env - A development environment launcher script.
@@ -67,7 +69,10 @@ This script serves as a C<pre-installation environment> for Gnu Guix.
 Its primary function is to set up the necessary environment variables, 
 specifically C<GUILE_LOAD_PATH> and C<GUIX_PACKAGE_PATH>, to include a custom
 channel's main directory (set in the C<.guix-channel> file) before executing
-any subsequent command.
+any subsequent command. By doing this, it ensures that Guix and Guile's
+interpreter can locate and use the custom package/service definitions provided
+by the channel. This is particularly useful for development, testing and
+pre-installation of packages defined within a foreign Guix channel.
 
 =head1 OPTIONS
 
@@ -79,13 +84,63 @@ Display this help message and exit.
 
 =back
 
+=head1 EXAMPLES
+
+=over
+
+=item Launch the Guix Package Manager with the custom channel
+
+C<./pre-inst-env guix build xed>: This command will launch guix build,
+ensuring that C<xed> which is defined in C<channel/guix-mate/packages/mint.scm>
+is found, loaded and built correctly.
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+=over
+
+=item C<GUILE_LOAD_PATH>
+
+This variable is prepended with the path of the custom channel's Guile modules.
+This allows Guile to find and load the necessary C<.scm> files.
+
+=item C<GUIX_PACKAGE_PATH>
+
+This variable is prepended with the path of the custom channel. This ensures
+Guix can locate the package/service definitions and other channel-related
+content.
+
+=back
+
 =head1 ERRORS & EXIT STATUSES
 
 The script exits with a non-zero status code if:
-  - It cannot determine the script's directory path.
-  - A command to execute is not provided.
-  - The command fails to execute.
-  - The channel directory is gone (has happened, don't ask :( pls)
+
+=over
+
+=item - It cannot determine the script's directory path.
+
+=item - A command to execute is not provided.
+
+=item  - The command fails to execute.
+
+=item  - The channel directory is gone (has happened, don't ask)
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or issues using the repository's bug tracker. The most
+likely causes for malfunctions are:
+
+=over
+
+=item The .guix-channel file is missing or has an incorrect path
+
+=item Permission issues on both the script and the channel directory
+
+=back
 
 =head1 AUTHOR & COPYING
 
