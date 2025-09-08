@@ -230,6 +230,12 @@ The themes also come with Mint-X-compact for the XFCE Desktop xfwm4.")
                                                       "/lib/sticky/sticky.py"))
                 (("/usr/share")
                  (string-append #$output "/share")))
+
+              (substitute* (find-files (string-append #$output
+                                                      "/lib/sticky/sticky.py"))
+                (("__DEB_VERSION__")
+                 (string-append "1.27" "-guix-mate")))
+
               (substitute* (find-files (string-append #$output
                                         "/lib/sticky/manager.py"))
                 (("/usr/share")
