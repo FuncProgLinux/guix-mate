@@ -188,6 +188,67 @@ The themes also come with Mint-X-compact for the XFCE Desktop xfwm4.")
     (description "Modern theme for GTK Desktops based on Mint-Y theme.")
     (license license:gpl3+)))
 
+(define-public sticky
+  (package
+    (name "sticky")
+    (version "1.27")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/linuxmint/sticky")
+             (commit "1.27")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "1i33s80777d2l848csf9rzyxns3alqir49a7d0vqvj8lz9r13ri2"))))
+    (build-system meson-build-system)
+    (arguments
+     (list
+      #:imported-modules `((guix build python-build-system)
+                           ,@%meson-build-system-modules)
+      #:modules '((guix build utils)
+                  (guix build meson-build-system)
+                  ((guix build python-build-system)
+                   #:prefix python:))
+      #:glib-or-gtk? #t
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
+            (lambda* (#:key inputs outputs #:allow-other-keys)
+              (wrap-program (search-input-file outputs "bin/sticky")
+                `("GUIX_PYTHONPATH" =
+                  (,(getenv "GUIX_PYTHONPATH") ,(python:site-packages inputs
+                                                                      outputs)))
+                `("GI_TYPELIB_PATH" =
+                  (,(getenv "GI_TYPELIB_PATH"))))))
+          (add-after 'install 'fix-paths
+            (lambda* (#:key outputs #:allow-other-keys)
+              (substitute* (find-files (string-append #$output "/bin/sticky"))
+                (("/usr/lib")
+                 (string-append #$output "/lib")))
+              (substitute* (find-files (string-append #$output
+                                                      "/lib/sticky/sticky.py"))
+                (("/usr/share")
+                 (string-append #$output "/share")))
+              (substitute* (find-files (string-append #$output
+                                        "/lib/sticky/manager.py"))
+                (("/usr/share")
+                 (string-append #$output "/share"))))))))
+    (inputs (list gettext-minimal
+                  gobject-introspection
+                  libxapp
+                  `(,glib "bin")
+                  `(,gtk+ "bin")
+                  gspell))
+    (native-inputs (list python python-pygobject python-xapp))
+    (home-page "https://github.com/linuxmint/sticky")
+    (synopsis "A sticky notes app for GTK desktops")
+    (description
+     "Sticky is a note-taking app for GTK desktops that simulates
+the traditional sticky note style. It includes basic formatting features, tray
+icons and autoatic backups.")
+    (license license:gpl2)))
+
 (define-public xed
   (package
     (name "xed")
