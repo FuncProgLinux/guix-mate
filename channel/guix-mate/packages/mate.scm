@@ -641,6 +641,11 @@ it will expose the user's $HOME/Public directory on a webdav server.")
                          (append mate-tweak)
                          (append mate-window-applets)
 
+                         ;; Remove after guix/guix#2554 is merged
+                         (delete libmatekbd)
+                         (delete libmateweather)
+                         (delete libmatemixer)
+
                          ;; Upstream MATE packages
                          (append mate-sensors-applet)
                          (append mate-user-share)))))
