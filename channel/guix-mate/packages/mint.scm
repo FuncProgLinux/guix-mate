@@ -7,6 +7,7 @@
   #:use-module (guix build-system copy)
   #:use-module (guix build-system meson)
   #:use-module (guix git-download)
+  #:use-module (gnu packages admin)
   #:use-module (gnu packages cinnamon)
   #:use-module (gnu packages documentation)
   #:use-module (gnu packages freedesktop)
@@ -23,6 +24,81 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg))
+
+(define-public libxapp-2.8.12
+  (package
+    (name "libxapp")
+    (version "2.8.12")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/linuxmint/xapp/")
+             (commit version)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0dymyx62skbmd6zc3bb8qsy6ylz99mi1n4dp5k7d6zv5r4x8sqrc"))))
+    (build-system meson-build-system)
+    (arguments
+     (list
+      #:modules `((guix build meson-build-system)
+                  (guix build utils)
+                  ((guix build python-build-system)
+                   #:prefix python:))
+      #:imported-modules `(,@%meson-build-system-modules (guix build
+                                                          python-build-system))
+      #:configure-flags
+      #~(list (string-append "-Dpy-overrides-dir="
+                             (python:site-packages %build-inputs %outputs)
+                             "/gi/overrides"))
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-before 'configure 'set-gtk-module-path
+            (lambda* (#:key inputs outputs #:allow-other-keys)
+              (setenv "PKG_CONFIG_GTK__3_0_LIBDIR"
+                      (string-append #$output "/lib"))
+              (substitute* "libxapp/meson.build"
+                (("gtk3_dep\\.get_pkgconfig_variable[(]'libdir'[)]")
+                 (string-append "'"
+                                (assoc-ref outputs "out") "/lib'")))
+
+              (substitute* "scripts/pastebin"
+                (("'nc'")
+                 (string-append "'"
+                                (search-input-file inputs "/bin/nc") "'")))
+
+              (substitute* "scripts/upload-system-info"
+                (("'inxi'")
+                 (string-append "'"
+                                (search-input-file inputs "/bin/inxi") "'"))
+                (("'/usr/bin/pastebin'")
+                 (string-append "'"
+                                (assoc-ref outputs "out") "/bin/pastebin'"))
+                (("'xdg-open'")
+                 (string-append "'"
+                                (search-input-file inputs "/bin/xdg-open") "'"))))))))
+    (inputs (list dbus
+                  glib ;for gio
+                  gtk+
+                  inxi-minimal ;used by upload-system-info
+                  libdbusmenu
+                  libgnomekbd
+                  netcat ;used by pastebin
+                  xdg-utils)) ;used by upload-system-info
+    (native-inputs (list gettext-minimal
+                         `(,glib "bin") ;for glib-mkenums
+                         gobject-introspection
+                         pkg-config
+                         python
+                         python-pygobject
+                         vala))
+    (home-page "https://github.com/linuxmint/xapp")
+    (synopsis "Library for traditional GTK applications")
+    (description
+     "The libxapp package contains the components which are common to multiple
+GTK desktop environments (Cinnamon, MATE and Xfce) and required to implement
+cross-DE solutions.")
+    (license license:lgpl3+)))
 
 (define-public mint-x-icon-theme
   (package
@@ -283,11 +359,10 @@ icons and autoatic backups.")
                   (list glib "bin")
                   libgnomekbd
                   libxkbfile
-                  python-3
                   libpeas
                   libsm
                   libxml2
-                  libxapp
+                  libxapp-2.8.12
                   libice
                   packagekit
                   pango
