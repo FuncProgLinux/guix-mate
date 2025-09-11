@@ -18,8 +18,13 @@
   #:use-module (gnu packages image)
   #:use-module (gnu packages inkscape)
   #:use-module (gnu packages pkg-config)
+  #:use-module (gnu packages polkit)
+  #:use-module (gnu packages protobuf)
   #:use-module (gnu packages python)
+  #:use-module (gnu packages python-crypto)
+  #:use-module (gnu packages python-web)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages rpc)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xdisorg)
@@ -330,6 +335,69 @@ The themes also come with Mint-X-compact for the XFCE Desktop xfwm4.")
 the traditional sticky note style. It includes basic formatting features, tray
 icons and autoatic backups.")
     (license license:gpl2)))
+
+(define-public warpinator
+  (package
+    (name "warpinator")
+    (version "1.8.10")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/linuxmint/warpinator")
+             (recursive? #t)
+             (commit "1.8.10")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "17rziwchjck3s7gxiq6bj6vv6rrf9kymhp051fb7j8655665h9ir"))))
+    (build-system meson-build-system)
+    (arguments
+     (list
+      #:imported-modules `((guix build python-build-system)
+                           ,@%meson-build-system-modules)
+      #:modules '((guix build utils)
+                  (guix build meson-build-system)
+                  ((guix build python-build-system)
+                   #:prefix python:))
+      #:glib-or-gtk? #t
+      #:configure-flags
+      #~(list "-Dbundle-grpc=false" "-Dbundle-zeroconf=false")
+      #:phases
+      #~(modify-phases %standard-phases
+          ;; FIXME: Wrongly wrapped! won't run for now
+          (add-after 'glib-or-gtk-wrap 'python-and-gi-wrap
+            (lambda* (#:key inputs outputs #:allow-other-keys)
+              (wrap-program (search-input-file outputs "bin/warpinator")
+                `("GUIX_PYTHONPATH" =
+                  (,(getenv "GUIX_PYTHONPATH") ,(python:site-packages inputs
+                                                                      outputs)))
+                `("GI_TYPELIB_PATH" =
+                  (,(getenv "GI_TYPELIB_PATH")))))))))
+    (native-inputs (list gettext-minimal
+                         gobject-introspection
+                         polkit
+                         python
+                         python-wrapper
+                         python-xapp
+                         libxapp-2.8.12))
+    (inputs (list `(,glib "bin")
+                  `(,gtk+ "bin")
+                  gdk-pixbuf
+                  python-pygobject
+                  python-setproctitle
+                  python-zeroconf
+                  python-grpcio
+                  python-grpcio-tools
+                  python-protobuf
+                  python-cryptography
+                  python-libnacl
+                  python-netaddr
+                  python-ifaddr
+                  python-netifaces))
+    (home-page "https://github.com/linuxmint/warpinator")
+    (synopsis "")
+    (description "")
+    (license license:gpl3)))
 
 (define-public xed
   (package
