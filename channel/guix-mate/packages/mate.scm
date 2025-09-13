@@ -592,6 +592,30 @@ it will expose the user's $HOME/Public directory on a webdav server.")
         #~(list (string-append "--sbindir="
                                #$output "/sbin")))))))
 
+;; TODO: Remove this after libxml issues are fixed in Guix
+(define-public libxml2-next
+  (package
+    (inherit libxml2)
+    (name "libxml2")
+    (version "2.14.5")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://gnome/sources/libxml2/"
+                           (version-major+minor version) "/libxml2-" version
+                           ".tar.xz"))
+       (sha256
+        (base32 "0jylv2kkyzih710blg24al7b43iaqg6xsfn52qy865knagrhdl03"))))
+    (native-inputs (modify-inputs (package-native-inputs libxml2)
+                     (append pkg-config python-minimal)))))
+
+(define-public libmateweather-1.28.0-1
+  (package
+    (inherit libmateweather)
+    (propagated-inputs (modify-inputs (package-propagated-inputs
+                                       libmateweather)
+                         (replace "libxml2" libxml2-next)))))
+
 (define-public pluma-1.28.0-1
   (package
     (inherit pluma)
@@ -618,7 +642,7 @@ it will expose the user's $HOME/Public directory on a webdav server.")
 (define-public mate-extra
   (package
     (inherit mate)
-    (version (string-append (package-version mate-desktop) "-1"))
+    (version (string-append (package-version mate-desktop) "-2"))
     (propagated-inputs (modify-inputs (package-propagated-inputs mate)
                          (replace "atril" atril-1.28.1)
                          (replace "engrampa" engrampa-1.28.2)
