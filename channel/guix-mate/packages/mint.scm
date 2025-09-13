@@ -395,8 +395,8 @@ icons and autoatic backups.")
                   python-ifaddr
                   python-netifaces))
     (home-page "https://github.com/linuxmint/warpinator")
-    (synopsis "")
-    (description "")
+    (synopsis "Share files across the LAN")
+    (description "Warpinator is a file sharing service for desktop users.")
     (license license:gpl3)))
 
 (define-public xed
