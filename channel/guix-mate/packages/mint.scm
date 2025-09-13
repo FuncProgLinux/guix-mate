@@ -120,7 +120,9 @@ cross-DE solutions.")
         (base32 "1blm42j1z8fizc95kbw50la66gpwzsyivinxl6i0x1bkz3ql1cxi"))))
     (build-system copy-build-system)
     (arguments
-     `(#:install-plan `(("usr/share/icons" "share/icons"))))
+     (list
+      #:install-plan
+      #~'(("usr/share/icons" "share/icons"))))
     (home-page "https://github.com/linuxmint/mint-x-icons")
     (synopsis "Icon theme for Linux Mint")
     (description
