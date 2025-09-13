@@ -130,7 +130,7 @@ cross-DE solutions.")
 (define-public mint-y-icon-theme
   (package
     (name "mint-y-icon-theme")
-    (version "1.8.4")
+    (version "1.8.6")
     (source
      (origin
        (method git-fetch)
@@ -142,7 +142,9 @@ cross-DE solutions.")
         (base32 "1vbm85jyn6w8c0bc9p0h0i3nx5m4i9hngyhdnyfnakp1bvv9bn3y"))))
     (build-system copy-build-system)
     (arguments
-     `(#:install-plan `(("usr/share/icons" "share/icons"))))
+     (list
+      #:install-plan
+      #~'(("usr/share/icons" "share/icons"))))
     (home-page "https://github.com/linuxmint/mint-y-icons")
     (synopsis "The Mint-Y icon theme")
     (description "A flat, colorful, and modern theme based on Paper and Moka.")
