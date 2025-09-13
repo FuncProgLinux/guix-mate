@@ -151,19 +151,21 @@ cross-DE solutions.")
 (define-public mint-l-icon-theme
   (package
     (name "mint-l-icon-theme")
-    (version "1.7.5")
+    (version "1.7.6")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/linuxmint/mint-l-icons")
-             (commit "master")))
+             (commit "b046353fa23951746e9bfa3d54f745819802649e")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "0bz0iqhrb7cybrfkhk583w2dq4dx3agba280f1c3ansv1m2szmp2"))))
+        (base32 "0mr8h3r5rpj7rinzvkikrmzvx0lk8f2rxp2wvaynj3q6hn0divkg"))))
     (build-system copy-build-system)
     (arguments
-     `(#:install-plan `(("usr/share/icons" "share/icons"))))
+     (list
+      #:install-plan
+      #~'(("usr/share/icons" "share/icons"))))
     (home-page "https://github.com/linuxmint/mint-l-icons")
     (synopsis "Mint-L icon theme")
     (description "A flat, colorful, and modern theme based on Paper and Moka.")
