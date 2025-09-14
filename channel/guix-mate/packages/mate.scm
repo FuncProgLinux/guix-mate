@@ -49,7 +49,6 @@
   #:use-module (gnu packages tex)
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xdisorg)
-  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
 
@@ -598,7 +597,7 @@ it will expose the user's $HOME/Public directory on a webdav server.")
     (inherit libmateweather)
     (propagated-inputs (modify-inputs (package-propagated-inputs
                                        libmateweather)
-                         (replace "libxml2" libxml2-next)))))
+                         (replace "libxml2" libxml2-next-for-grafting)))))
 
 (define-public pluma-1.28.0-1
   (package
