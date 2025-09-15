@@ -156,17 +156,7 @@ Gnu/Linux.")
                    (string-append "\"" out "/share/gir-1.0/\""))
                   (("\\$\\(\\$PKG_CONFIG --variable=typelibdir gobject-introspection-1.0\\)")
                    (string-append out "/lib/girepository-1.0/"))) #t)))
-          ;; patch XDG_DATA_DIRS
-          (add-after 'glib-or-gtk-wrap 'wrap-typelib
-            (lambda* (#:key outputs inputs #:allow-other-keys)
-              (wrap-program (search-input-file outputs "/bin/mate-panel")
-                ;; For plugins.
-                `("MATE_PANEL_EXTRA_MODULES" ":" =
-                  ("/run/current-system/profile/libexec/"))
-                `("MATE_PANEL_APPLETS_DIR" ":" =
-                  ("/run/current-system/profile/share/mate-panel/applets/")))))
-
-          ;; Post install path fixups
+          ;; Fix paths for mate-tweak
           (add-after 'install 'substitute-postinstall-paths
             (lambda* (#:key outputs #:allow-other-keys)
               (let* ((out (assoc-ref outputs "out"))
@@ -209,6 +199,16 @@ Gnu/Linux.")
                   pango
                   tzdata
                   wayland))
+    (native-search-paths
+     (list (search-path-specification
+            (variable "XDG_DATA_DIRS")
+            (files '("share")))
+           (search-path-specification
+            (variable "MATE_PANEL_APPLETS_DIR")
+            (files '("/share/mate-panel/applets")))
+           (search-path-specification
+            (variable "MATE_PANEL_EXTRA_MODULES")
+            (files '("/lib/mate-panel/applets")))))
     (home-page "https://mate-desktop.org/")
     (synopsis "Panel for MATE")
     (description
@@ -216,11 +216,7 @@ Gnu/Linux.")
 several applets.  The applets supplied here include the Workspace Switcher,
 the Window List, the Window Selector, the Notification Area, the Clock and the
 infamous 'Wanda the Fish'.")
-    (license (list license:gpl2+ license:lgpl2.0+))
-    (native-search-paths
-     (list (search-path-specification
-            (variable "XDG_DATA_DIRS")
-            (files '("share")))))))
+    (license (list license:gpl2+ license:lgpl2.0+))))
 
 (define-public engrampa-1.28.2
   (package
