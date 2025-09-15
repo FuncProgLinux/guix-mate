@@ -34,25 +34,7 @@
     (build-system meson-build-system)
     (arguments
      (list
-      #:glib-or-gtk? #t
-      #:phases
-      #~(modify-phases %standard-phases
-          (add-after 'install 'fix-applet-path
-            (lambda* (#:key outputs #:allow-other-keys)
-              (let* ((out (assoc-ref outputs "out")))
-                (substitute* (find-files (string-append out
-                                          "/share/dbus-1/services")
-                              "\\org.mate.panel.applet.BriskMenuFactory.service$")
-                  (("Exec=.*")
-                   (string-append "Exec="
-                    "/run/current-system/profile/libexec/.brisk-menu" "\n")))
-                ;; Fix the applet desktop file
-                (substitute* (find-files (string-append out
-                                          "/share/mate-panel/applets")
-                              "\\com.solus_project.brisk.BriskMenu.mate-panel-applet$")
-                  (("Location=.*")
-                   (string-append "Location="
-                    "/run/current-system/profile/libexec/brisk-menu" "\n")))))))))
+      #:glib-or-gtk? #t))
     (native-inputs (list pkg-config
                          intltool
                          itstool
