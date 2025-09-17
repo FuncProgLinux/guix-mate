@@ -83,6 +83,8 @@
                 (substitute* "lib/mate-menu.py"
                   (("'/','usr','share','mate-menu'")
                    (string-append "'" output "','share','mate-menu'"))))))
+
+          ;; TODO: Create a post-install phase with path-patching
           (add-after 'wrap 'gi-wrap
             (lambda _
               (let ((prog (string-append #$output "/bin/mate-menu")))
