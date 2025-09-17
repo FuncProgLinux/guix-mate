@@ -522,7 +522,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
                          (replace "engrampa" engrampa-1.28.2)
                          (replace "mate-themes" mate-themes-3.22.26)
                          (replace "mate-applets" mate-applets-1.28.1)
-                         (replace "mate-panel" mate-panel-1.28.4)
                          (replace "mate-polkit" mate-polkit-1.28.1-1)
                          (replace "mate-menus" mate-menus-1.28.0-1)
                          (replace "mate-power-manager"
