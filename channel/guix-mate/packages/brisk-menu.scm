@@ -50,6 +50,7 @@
                          `(,gtk+ "bin")
                          yelp-tools))
     (inputs (list dconf
+                  dbus
                   gtk+
                   libsm
                   libx11
