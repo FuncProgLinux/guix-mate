@@ -85,17 +85,58 @@
                    (string-append "'" output "','share','mate-menu'"))))))
 
           ;; TODO: Create a post-install phase with path-patching
+          (add-after 'install 'fix-postinstall-paths
+            (lambda* (#:key outputs #:allow-other-keys)
+              (substitute* (find-files (string-append #$output
+                                                      "/lib/mate-menu/")
+                                       "\\mate-menu.py$")
+                (("'/', 'usr', 'share', 'mate-menu'")
+                 (string-append "'"
+                                #$output "','share','mate-menu'"))
+                (("'/', 'usr', 'lib', 'mate-menu'")
+                 (string-append "'"
+                                #$output "','lib','mate-menu'")))
+
+              (substitute* (find-files (string-append #$output
+                                                      "/lib/mate-menu/")
+                                       "\\mate-menu-config.py$")
+                (("'/', 'usr', 'share', 'mate-menu'")
+                 (string-append "'"
+                                #$output "','share','mate-menu'")))
+
+              (substitute* (find-files (string-append #$output
+                                        "/lib/python3.11/site-packages/mate_menu/plugins/")
+                                       "\\applications.py$")
+                (("'/usr', 'share'")
+                 (string-append "'"
+                                #$output "','share'")))
+
+              (substitute* (find-files (string-append #$output
+                                        "/lib/python3.11/site-packages/mate_menu/plugins/")
+                                       "\\places.py$")
+                (("'/', 'usr', 'share',")
+                 (string-append "'"
+                                #$output "','share',")))
+
+              (substitute* (find-files (string-append #$output
+                                        "/lib/python3.11/site-packages/mate_menu/plugins/")
+                                       "\\system_management.py$")
+                (("'/', 'usr', 'share',")
+                 (string-append "'"
+                                #$output "','share', ")))
+
+              ))
+
           (add-after 'wrap 'gi-wrap
             (lambda _
               (let ((prog (string-append #$output "/bin/mate-menu")))
                 (wrap-program prog
                   `("GI_TYPELIB_PATH" =
                     (,(getenv "GI_TYPELIB_PATH"))))))))))
-    (native-inputs `(("python-wrapper" ,python-wrapper)
-                     ("intltool" ,intltool)
-                     ("python-distutils-extra" ,python-distutils-extra)
-                     ("gobject-introspection" ,gobject-introspection)))
+    (native-inputs (list python-wrapper intltool python-distutils-extra
+                         gobject-introspection))
     (inputs (list gtk+
+                  glib
                   mate-menus
                   mate-panel
                   python-configobj
@@ -105,7 +146,8 @@
                   python-xdg
                   python-xlib
                   python-pycairo
-                  python-setproctitle))
+                  python-setproctitle
+                  xvfb-run))
     (home-page "https://github.com/ubuntu-mate/mate-menu")
     (synopsis "An Advanced Menu for the MATE Desktop.")
     (description "An advanced menu for MATE. Ported from Linux Mint by the
