@@ -34,7 +34,12 @@
     (build-system meson-build-system)
     (arguments
      (list
-      #:glib-or-gtk? #t))
+      #:glib-or-gtk? #t
+      #:configure-flags
+      #~(list (string-append "--libdir="
+                             #$output "/lib")
+              (string-append "--libexecdir="
+                             #$output "/lib"))))
     (native-inputs (list pkg-config
                          intltool
                          itstool
