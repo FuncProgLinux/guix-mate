@@ -58,57 +58,6 @@
   #:use-module (guix-mate packages mate-tweak)
   #:use-module (guix-mate packages mate-window-applets))
 
-(define-public engrampa-1.28.2
-  (package
-    (name "engrampa")
-    (version "1.28.2")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (string-append "mirror://mate/"
-                           (version-major+minor version)
-                           "/"
-                           "engrampa-"
-                           version
-                           ".tar.xz"))
-       (sha256
-        (base32 "1vq9mi87c0agfwysrbki155835xgv5qm2cbzld1qigs56z17g68y"))))
-    (build-system glib-or-gtk-build-system)
-    (arguments
-     `(#:configure-flags (list "--disable-schemas-compile"
-                               "--disable-run-in-place" "--enable-magic"
-                               "--enable-packagekit"
-                               (string-append "--with-cajadir="
-                                              (assoc-ref %outputs "out")
-                                              "/lib/caja/extensions-2.0/"))
-       #:phases (modify-phases %standard-phases
-                  (add-before 'install 'skip-gtk-update-icon-cache
-                    ;; Don't create 'icon-theme.cache'.
-                    (lambda _
-                      (substitute* "data/Makefile"
-                        (("gtk-update-icon-cache")
-                         "true")) #t)))))
-    (native-inputs `(("gettext" ,gettext-minimal)
-                     ("gtk-doc" ,gtk-doc/stable)
-                     ("intltool" ,intltool)
-                     ("pkg-config" ,pkg-config)
-                     ("yelp-tools" ,yelp-tools)))
-    (inputs (list caja
-                  file
-                  glib
-                  gtk+
-                  (librsvg-for-system)
-                  json-glib
-                  libcanberra
-                  libx11
-                  libsm
-                  packagekit
-                  pango))
-    (home-page "https://mate-desktop.org/")
-    (synopsis "Archive Manager for MATE")
-    (description "Engrampa is the archive manager for the MATE Desktop.")
-    (license license:gpl2)))
-
 (define-public atril-1.28.1
   (package
     (name "atril")
@@ -464,7 +413,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
     (version (string-append (package-version mate-desktop) "-2"))
     (propagated-inputs (modify-inputs (package-propagated-inputs mate)
                          (replace "atril" atril-1.28.1)
-                         (replace "engrampa" engrampa-1.28.2)
                          (replace "mate-themes" mate-themes-3.22.26)
                          (replace "mate-applets" mate-applets-1.28.1)
                          (replace "mate-polkit" mate-polkit-1.28.1-1)
@@ -485,5 +433,4 @@ it will expose the user's $HOME/Public directory on a webdav server.")
                          (append mate-window-applets)
 
                          ;; Upstream MATE packages
-                         (append mate-sensors-applet)
                          (append mate-user-share)))))
