@@ -292,14 +292,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
         #~(list (string-append "--sbindir="
                                #$output "/sbin")))))))
 
-;; TODO: Remove this after libxml issues are fixed in Guix
-(define-public libmateweather-1.28.0-1
-  (package
-    (inherit libmateweather)
-    (propagated-inputs (modify-inputs (package-propagated-inputs
-                                       libmateweather)
-                         (replace "libxml2" libxml2-next-for-grafting)))))
-
 (define-public pluma-1.28.0-1
   (package
     (inherit pluma)
@@ -338,7 +330,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
                          (replace "mate-settings-daemon"
                                   mate-settings-daemon-1.28.0-1)
                          (replace "mate-media" mate-media-1.28.1-1)
-                         (replace "libmateweather" libmateweather-1.28.0-1)
                          (replace "mate-control-center"
                                   mate-control-center-1.28.0-1)
                          ;; Ubuntu MATE Packages
