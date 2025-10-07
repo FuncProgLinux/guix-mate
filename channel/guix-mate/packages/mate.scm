@@ -54,7 +54,6 @@
 
   ;; Include this repository files
   #:use-module (guix-mate packages brisk-menu)
-  #:use-module (guix-mate packages mate-menu)
   #:use-module (guix-mate packages mate-tweak)
   #:use-module (guix-mate packages mate-window-applets))
 
@@ -334,7 +333,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
                                   mate-control-center-1.28.0-1)
                          ;; Ubuntu MATE Packages
                          (append brisk-menu)
-                         (append mate-menu)
                          (append mate-tweak)
                          (append mate-window-applets)
 
