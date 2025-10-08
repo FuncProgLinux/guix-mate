@@ -76,9 +76,7 @@
     (arguments
      (list
       #:configure-flags
-      #~(list "--enable-suid=no" "--enable-polkit"
-              (string-append "--libexecdir="
-                             #$output "/libexec")
+      #~(list "--enable-suid=no" "--enable-polkit" "--enable-in-process"
               (string-append "--with-dbus-sys="
                              #$output "/share/dbus-1/system.d")
               "--enable-ipv6")))
@@ -196,6 +194,53 @@ themes for both gtk+-2 and gtk+-3.")
     (description "This applet displays information from various applications
 consistently in the MATE panel.")
     (license (list license:gpl3 license:lgpl2.1))))
+
+(define-public caja-actions
+  (package
+    (name "caja-actions")
+    (version "1.28.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://mate/"
+                           (version-major+minor version)
+                           "/"
+                           "caja-actions-"
+                           version
+                           ".tar.xz"))
+       (sha256
+        (base32 "0kga1dfv6kcyyidgzbnxvyc48kqmnq0ai82ri62aszvhir43j39i"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list (string-append "--with-caja-extdir="
+                             #$output "/lib/caja/extensions-2.0/"
+                             "--disable-static"))))
+    (native-inputs (list gettext-minimal
+                         intltool
+                         libice
+                         libxml2
+                         libtool
+                         gobject-introspection
+                         gtk-doc/stable
+                         pkg-config
+                         yelp-tools))
+    (inputs (list caja
+                  dbus
+                  dbus-glib
+                  gtk+
+                  (list glib "bin")
+                  libgtop
+                  libsm
+                  mate-desktop))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Execute commands from the caja popup menu.")
+    (description
+     "This package is an extension for the MATE caja file manager
+it allows users to add arbitrary programs and launch them through the popup
+menu of selected files.")
+    (license license:gpl2)))
 
 (define-public mate-user-share
   (package
