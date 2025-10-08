@@ -87,7 +87,6 @@
                          itstool ;Listed in upstream build.yml
                          libxslt
                          yelp-tools
-                         scrollkeeper
                          gettext-minimal
                          docbook-xml
                          gobject-introspection))
