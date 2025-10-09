@@ -267,6 +267,7 @@ menu of selected files.")
     (native-inputs (list pkg-config gettext-minimal itstool libxml2))
     (inputs (list gtk+
                   caja
+                  dbus
                   dbus-glib
                   libnotify
                   libcanberra
