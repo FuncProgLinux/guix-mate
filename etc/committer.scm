@@ -1,3 +1,18 @@
+#!/usr/bin/env -S guix repl
+!#
+
+;;; SPDX-License-Identifier: GPL-3.0-or-later
+;;; Copyright © 2020, 2021, 2022, 2023 Ricardo Wurmus <rekado@elephly.net>
+;;; Copyright © 2021 Sarah Morgensen <iskarian@mgsn.dev>
+;;; Copyright © 2021 Xinglu Chen <public@yoctocell.xyz>
+;;; Copyright © 2022 Maxim Cournoyer <maxim.cournoyer@gmail.com>
+
+;;; Commentary:
+
+;; This script stages and commits changes to package definitions.
+
+;;; Code:
+
 (use-modules ((sxml xpath)
               #:prefix xpath:)
              (srfi srfi-1)
