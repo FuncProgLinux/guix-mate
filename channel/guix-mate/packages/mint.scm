@@ -234,16 +234,16 @@ The themes also come with Mint-X-compact for the XFCE Desktop xfwm4.")
 (define-public mint-l-theme
   (package
     (name "mint-l-theme")
-    (version "2.0.1")
+    (version "2.0.2")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/linuxmint/mint-l-theme")
-             (commit "2.0.1")))
+             (commit "2.0.2")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "0nkx11c6kcvbrcpma3x9h2m57sz3v5yni2d64xwwprx5qxmqpjyy"))))
+        (base32 "02z4salqpabmg6lbg4wj7mc0clv7ng8s2014p9gdkjlf03zx9x20"))))
     (build-system copy-build-system)
     (inputs (list inkscape optipng))
     (native-inputs (list python python-wrapper sassc python-libsass))
