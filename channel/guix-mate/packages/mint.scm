@@ -132,16 +132,16 @@ cross-DE solutions.")
 (define-public mint-y-icon-theme
   (package
     (name "mint-y-icon-theme")
-    (version "1.8.6")
+    (version "1.8.8")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/linuxmint/mint-y-icons")
-             (commit "1.8.4")))
+             (commit "1.8.8")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1vbm85jyn6w8c0bc9p0h0i3nx5m4i9hngyhdnyfnakp1bvv9bn3y"))))
+        (base32 "012q55r0d8s5xnxaskqc0r5hzz4z5kr2b6yk3qny9sh3alsv8niw"))))
     (build-system copy-build-system)
     (arguments
      (list
