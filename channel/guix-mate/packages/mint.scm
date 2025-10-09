@@ -108,16 +108,16 @@ cross-DE solutions.")
 (define-public mint-x-icon-theme
   (package
     (name "mint-x-icon-theme")
-    (version "1.7.3")
+    (version "1.7.4")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/linuxmint/mint-x-icons")
-             (commit "1.7.3")))
+             (commit "1.7.4")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1blm42j1z8fizc95kbw50la66gpwzsyivinxl6i0x1bkz3ql1cxi"))))
+        (base32 "1r42gpy8dl641ksn7qp2padvbind7aizji3sm6mgm7bgvy80vb8i"))))
     (build-system copy-build-system)
     (arguments
      (list
