@@ -25,3 +25,5 @@ This channel takes bits & pieces from other libre software projects:
 - Futurile's Guix packaging series:
   - [build systems & phases](https://www.futurile.net/2024/07/23/guix-package-structure-build-system-phases/)
   - [modify packages using inheritance](https://www.futurile.net/2024/01/12/modifying-guix-packages-using-inheritance/)
+- [Hako's Rosenthal Channel](https://codeberg.org/hako/Rosenthal/)
+  - For the `committer.scm` modified script
