@@ -155,16 +155,16 @@ cross-DE solutions.")
 (define-public mint-l-icon-theme
   (package
     (name "mint-l-icon-theme")
-    (version "1.7.6")
+    (version "1.7.8")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/linuxmint/mint-l-icons")
-             (commit "b046353fa23951746e9bfa3d54f745819802649e")))
+             (commit "5d96655e37a85aa5e3d20bc7b38c9675a6145d13")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "0mr8h3r5rpj7rinzvkikrmzvx0lk8f2rxp2wvaynj3q6hn0divkg"))))
+        (base32 "0mlxr29lym93jmbmss1bv3i0qvp22pvp7142hpf98aa9phqldizl"))))
     (build-system copy-build-system)
     (arguments
      (list
