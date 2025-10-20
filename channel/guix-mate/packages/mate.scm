@@ -58,6 +58,28 @@
   #:use-module (guix-mate packages mate-tweak)
   #:use-module (guix-mate packages mate-window-applets))
 
+;; TODO: Remove this after the package gets updated at upstream
+;; Guix on: gnu/packages/gnome.scm
+(define-public libwnck-next
+  (package
+    (inherit libwnck)
+    (name "libwnck")
+    (version "43.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (string-append "mirror://gnome/sources/"
+                           "libwnck"
+                           "/"
+                           (version-major version)
+                           "/"
+                           "libwnck"
+                           "-"
+                           (version-major+minor version)
+                           ".tar.xz"))
+       (sha256
+        (base32 "1zn1l8k5m4lz9acwvx6fgvkflqfwsq6b6mhyhvwbimj7b2wcsnwh"))))))
+
 (define-public mate-applets-1.28.1
   (package
     (name "mate-applets")
