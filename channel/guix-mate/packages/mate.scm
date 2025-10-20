@@ -80,6 +80,103 @@
        (sha256
         (base32 "1zn1l8k5m4lz9acwvx6fgvkflqfwsq6b6mhyhvwbimj7b2wcsnwh"))))))
 
+(define-public mate-panel-1.28.7
+  (package
+    (name "mate-panel")
+    (version "1.28.7")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/mate-desktop/mate-panel")
+             (commit (string-append "v" version))
+             (recursive? #t)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "1549rd3x08qm91n55rw6jy8n1ryf3n7h4bf2n456cjv4iqjvlr7h"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     `(#:configure-flags (list (string-append "--with-zoneinfo-dir="
+                                              (assoc-ref %build-inputs
+                                                         "tzdata")
+                                              "/share/zoneinfo")
+                               "--with-in-process-applets=all")
+       #:phases (modify-phases %standard-phases
+                  (add-before 'configure 'fix-timezone-path
+                    (lambda* (#:key inputs #:allow-other-keys)
+                      (let* ((tzdata (assoc-ref inputs "tzdata")))
+                        (substitute* "applets/clock/system-timezone.h"
+                          (("/usr/share/lib/zoneinfo/tab")
+                           (string-append tzdata "/share/zoneinfo/zone.tab"))
+                          (("/usr/share/zoneinfo")
+                           (string-append tzdata "/share/zoneinfo")))) #t))
+                  (add-after 'unpack 'fix-introspection-install-dir
+                    (lambda* (#:key outputs #:allow-other-keys)
+                      ;; NOTE: v1.28.5 and later require autogen.sh
+                      (setenv "ACLOCAL_FLAGS"
+                              (string-join (map (lambda (s)
+                                                  (string-append "-I " s))
+                                                (string-split (getenv
+                                                               "ACLOCAL_PATH")
+                                                              #\:)) " "))
+                      (setenv "NOCONFIGURE" "yes")
+                      (invoke "bash" "autogen.sh")
+                      (let ((out (assoc-ref outputs "out")))
+                        (substitute* '("configure")
+                          (("`\\$PKG_CONFIG --variable=girdir gobject-introspection-1.0`")
+                           (string-append "\"" out "/share/gir-1.0/\""))
+                          (("\\$\\(\\$PKG_CONFIG --variable=typelibdir gobject-introspection-1.0\\)")
+                           (string-append out "/lib/girepository-1.0/"))) #t))))))
+    (native-inputs (list autoconf
+                         autoconf-archive
+                         automake
+                         pkg-config
+                         intltool
+                         itstool
+                         gtk-doc/stable
+                         libtool
+                         mate-common
+                         xtrans
+                         gobject-introspection
+                         which ;Wanted by autogen.sh
+                         yelp-tools))
+    (inputs (list dconf
+                  dconf-editor
+                  cairo
+                  dbus-glib
+                  gtk-layer-shell
+                  gtk+
+                  libcanberra
+                  libice
+                  libmateweather
+                  (librsvg-for-system)
+                  libsm
+                  libx11
+                  libxau
+                  libxml2
+                  libxrandr
+                  libwnck-next
+                  mate-desktop
+                  mate-menus
+                  pango
+                  tzdata
+                  wayland))
+    (native-search-paths
+     (list (search-path-specification
+            (variable "MATE_PANEL_APPLETS_DIR")
+            (files '("share/mate-panel/applets")))
+           (search-path-specification
+            (variable "MATE_PANEL_EXTRA_MODULES")
+            (files '("lib/mate-panel/modules")))))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Panel for MATE")
+    (description
+     "Mate-panel contains the MATE panel, the libmate-panel-applet library and
+several applets.  The applets supplied here include the Workspace Switcher,
+the Window List, the Window Selector, the Notification Area, the Clock and the
+infamous 'Wanda the Fish'.")
+    (license (list license:gpl2+ license:lgpl2.0+))))
+
 (define-public mate-applets-1.28.1
   (package
     (name "mate-applets")
