@@ -291,31 +291,6 @@ themes for both gtk+-2 and gtk+-3.")
     (license (list license:lgpl2.1+ license:cc-by-sa3.0 license:gpl3+
                    license:gpl2+))))
 
-(define-public mate-indicator-applet
-  (package
-    (name "mate-indicator-applet")
-    (version "1.28.0")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (string-append "mirror://mate/"
-                           (version-major+minor version)
-                           "/"
-                           "mate-indicator-applet-"
-                           version
-                           ".tar.xz"))
-       (sha256
-        (base32 "1ka9mplw28p2sb75lj9559sszqvi44f0ppypgj6maghajw1xgcyf"))))
-    (build-system glib-or-gtk-build-system)
-    (native-inputs (list pkg-config gettext-minimal))
-    (inputs (list gtk+ libindicator mate-common mate-panel hicolor-icon-theme))
-    (home-page "https://mate-desktop.org/")
-    (synopsis
-     "Applet for displaying application indicators on the MATE panel.")
-    (description "This applet displays information from various applications
-consistently in the MATE panel.")
-    (license (list license:gpl3 license:lgpl2.1))))
-
 (define-public caja-actions
   (package
     (name "caja-actions")
