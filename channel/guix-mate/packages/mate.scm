@@ -534,7 +534,7 @@ it will expose the user's $HOME/Public directory on a webdav server.")
 (define-public mate-extra
   (package
     (inherit mate)
-    (version (string-append (package-version mate-desktop) "-2"))
+    (version (string-append (package-version mate-desktop) "-3"))
     (propagated-inputs (modify-inputs (package-propagated-inputs mate)
                          (replace "mate-themes" mate-themes-3.22.26)
                          (replace "mate-applets" mate-applets-1.28.1)
