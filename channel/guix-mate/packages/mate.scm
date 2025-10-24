@@ -408,80 +408,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
         #~(list (string-append "--sbindir="
                                #$output "/sbin")))))))
 
-(define-public pluma-1.28.0-1
-  (package
-    (name "pluma")
-    (version "1.28.0")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (string-append "mirror://mate/"
-                           (version-major+minor version)
-                           "/"
-                           name
-                           "-"
-                           version
-                           ".tar.xz"))
-       (sha256
-        (base32 "1m51cmcl6z68bx37zhi72wfl58kq9bg7xcih1sjr6l1li6axz2ma"))))
-    (build-system glib-or-gtk-build-system)
-    (arguments
-     (list
-      #:configure-flags
-      #~(list "--enable-python")
-      #:phases
-      #~(modify-phases %standard-phases
-          (add-after 'install 'wrap-pluma
-            (lambda* (#:key outputs #:allow-other-keys)
-              (wrap-program (search-input-file outputs "bin/pluma")
-                ;; For plugins (same as gedit).
-                `("GI_TYPELIB_PATH" ":" prefix
-                  (,(getenv "GI_TYPELIB_PATH")))
-                `("GUIX_PYTHONPATH" ":" prefix
-                  (,(getenv "GUIX_PYTHONPATH")))
-                ;; For language-specs.
-                `("XDG_DATA_DIRS" ":" prefix
-                  (,(string-append #$(this-package-input "gtksourceview")
-                                   "/share")))))))
-      ;; Tests can not succeed.
-      ;; https://github.com/mate-desktop/mate-text-editor/issues/33
-      #:tests? #f))
-    (native-inputs (list gettext-minimal
-                         gtk-doc/stable
-                         gobject-introspection
-                         intltool
-                         libtool
-                         perl
-                         pkg-config
-                         yelp-tools))
-    (inputs (list at-spi2-core
-                  cairo
-                  enchant
-                  glib
-                  gtk+
-                  gtksourceview-4
-                  gdk-pixbuf
-                  iso-codes/pinned
-                  libcanberra
-                  libx11
-                  libsm
-                  libpeas
-                  libxml2
-                  libice
-                  mate-desktop
-                  packagekit
-                  pango
-                  python
-                  python-pygobject
-                  python-wrapper
-                  python-pycairo
-                  python-six
-                  startup-notification))
-    (home-page "https://mate-desktop.org/")
-    (synopsis "Text Editor for MATE")
-    (description "Pluma is the text editor for the MATE Desktop.")
-    (license license:gpl2)))
-
 (define-public mate-extra
   (package
     (inherit mate)
@@ -493,7 +419,6 @@ it will expose the user's $HOME/Public directory on a webdav server.")
                          (replace "mate-menus" mate-menus-1.28.0-1)
                          (replace "mate-power-manager"
                                   mate-power-manager-1.28.1-1)
-                         (replace "pluma" pluma-1.28.0-1)
                          (replace "mate-settings-daemon"
                                   mate-settings-daemon-1.28.0-1)
                          (replace "mate-media" mate-media-1.28.1-1)
