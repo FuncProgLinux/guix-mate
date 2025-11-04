@@ -434,6 +434,56 @@ document, it also allows searching for text, copying text to the clipboard,
 hypertext navigation, and table-of-contents bookmarks.")
     (license license:gpl2)))
 
+(define-public mate-notification-daemon-1.28.5
+  (package
+    (name "mate-notification-daemon")
+    (version "1.28.5")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/mate-desktop/mate-notification-daemon")
+             (commit (string-append "v" version))
+             (recursive? #t)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "11nxk1f6mpfa4bgx82s1qs288832cd2gbrq2ni0dqby9ml7sbpp8"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'unpack 'preconfigure
+            (lambda _
+              (setenv "ACLOCAL_FLAGS"
+                      (string-join (map (lambda (s)
+                                          (string-append "-I " s))
+                                        (string-split (getenv "ACLOCAL_PATH")
+                                                      #\:)) " ")))))))
+    (native-inputs (list autoconf
+                         autoconf-archive
+                         automake
+                         pkg-config
+                         gettext-minimal
+                         mate-common
+                         libtool
+                         which ;Wanted by autogen.sh
+                         libxml2))
+    (inputs (list gtk+
+                  dbus-glib
+                  libwnck-next
+                  libnotify
+                  libcanberra
+                  mate-desktop
+                  mate-panel
+                  hicolor-icon-theme))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "Notification daemon for MATE")
+    (description
+     "This MATE Desktop component is meant to run on the background and
+deliver notifications to the user.")
+    (license license:gpl2+)))
+
 (define-public mate-user-share
   (package
     (name "mate-user-share")
