@@ -314,6 +314,126 @@ it allows users to add arbitrary programs and launch them through the popup
 menu of selected files.")
     (license license:gpl2)))
 
+(define-public atril-1.28.2
+  (package
+    (name "atril")
+    (version "1.28.2")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/mate-desktop/atril")
+             (commit (string-append "v" version))
+             (recursive? #t)))
+       (sha256
+        (base32 "09km7v2vak8a0xzg21pc7p195f4lkjl87wyi55cwd7riczf86x9n"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list "--enable-introspection" "--disable-schemas-compile"
+              ;; FIXME: Enable build of Caja extensions.
+              "--disable-caja"
+              (string-append "--with-openjpeg="
+                             #$(this-package-input "openjpeg")))
+      #:tests? #f
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'unpack 'fix-mathjax-path
+            (lambda _
+              (let* ((mathjax (assoc-ref %build-inputs "js-mathjax"))
+                     (mathjax-path (string-append mathjax
+                                                  "/share/javascript/mathjax")))
+                (substitute* "backend/epub/epub-document.c"
+                  (("/usr/share/javascript/mathjax")
+                   mathjax-path))) #t))
+          (add-after 'unpack 'fix-introspection-install-dir
+            (lambda _
+              (setenv "ACLOCAL_FLAGS"
+                      (string-join (map (lambda (s)
+                                          (string-append "-I " s))
+                                        (string-split (getenv "ACLOCAL_PATH")
+                                                      #\:)) " "))
+              (setenv "NOCONFIGURE" "yes")
+              (invoke "bash" "autogen.sh")
+              (substitute* '("configure")
+                (("\\$\\(\\$PKG_CONFIG --variable=girdir gobject-introspection-1.0\\)")
+                 (string-append "\""
+                                #$output "/share/gir-1.0/\""))
+                (("\\$\\(\\$PKG_CONFIG --variable=typelibdir gobject-introspection-1.0\\)")
+                 (string-append #$output "/lib/girepository-1.0/")))))
+          (add-before 'install 'skip-gtk-update-icon-cache
+            ;; Don't create 'icon-theme.cache'.
+            (lambda _
+              (substitute* "data/Makefile"
+                (("gtk-update-icon-cache")
+                 "true")) #t)))))
+    (native-inputs (list autoconf
+                         autoconf-archive
+                         automake
+                         pkg-config
+                         intltool
+                         itstool
+                         libtool
+                         yelp-tools
+                         (list glib "bin")
+                         gobject-introspection
+                         gtk-doc/stable
+                         texlive-bin ;synctex
+                         mate-common
+                         libxml2
+                         which ;Wanted by autogen.sh
+                         zlib))
+    (inputs (list at-spi2-core
+                  cairo
+                  caja
+                  dconf
+                  dbus
+                  dbus-glib
+                  djvulibre
+                  fontconfig
+                  freetype
+                  ghostscript
+                  glib
+                  gtk+
+                  js-mathjax
+                  libcanberra
+                  libsecret
+                  libspectre
+                  libtiff
+                  libx11
+                  libice
+                  libsm
+                  libgxps
+                  libjpeg-turbo
+                  libxml2
+                  mate-desktop
+                  python-dogtail
+                  shared-mime-info
+                  gdk-pixbuf
+                  gsettings-desktop-schemas
+                  libgnome-keyring
+                  libarchive
+                  marco
+                  openjpeg
+                  pango
+                  ;; texlive
+                  ;; TODO:
+                  ;; Build libkpathsea as a shared library for DVI support.
+                  ;; ("libkpathsea" ,texlive-bin)
+                  poppler
+                  startup-notification
+                  webkitgtk-for-gtk3))
+    (home-page "https://mate-desktop.org")
+    (synopsis "Document viewer for Mate")
+    (description
+     "Atril is a simple multi-page document viewer.  It can display and print
+@acronym{PostScript, PS}, @acronym{Encapsulated PostScript EPS}, DJVU, DVI, XPS
+and @acronym{Portable Document Format PDF} files.  When supported by the
+document, it also allows searching for text, copying text to the clipboard,
+hypertext navigation, and table-of-contents bookmarks.")
+    (license license:gpl2)))
+
 (define-public mate-user-share
   (package
     (name "mate-user-share")
