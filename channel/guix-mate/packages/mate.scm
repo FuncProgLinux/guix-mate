@@ -528,6 +528,66 @@ it will expose the user's $HOME/Public directory on a webdav server.")
         #~(list (string-append "--sbindir="
                                #$output "/sbin")))))))
 
+(define-public libmateweather-1.28.1
+  (package
+    (name "libmateweather")
+    (version "1.28.1")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/mate-desktop/libmateweather")
+             (commit (string-append "v" version))
+             (recursive? #t)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "150wzqd619rggfwhzn4s456rbz9dv5l0qx7x80jcinibwgw7hjjv"))))
+    (build-system gnu-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list "--with-zoneinfo-dir=/var/empty")
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'unpack 'preconfigure
+            (lambda _
+              (setenv "ACLOCAL_FLAGS"
+                      (string-join (map (lambda (s)
+                                          (string-append "-I " s))
+                                        (string-split (getenv "ACLOCAL_PATH")
+                                                      #\:)) " "))))
+          (add-before 'check 'fix-tzdata-location
+            (lambda* (#:key inputs #:allow-other-keys)
+              (setenv "TZDIR"
+                      (search-input-directory inputs "/share/zoneinfo"))
+              (substitute* "data/check-timezones.sh"
+                (("/usr/share/zoneinfo/zone.tab")
+                 (search-input-file inputs "/share/zoneinfo/zone.tab"))
+                ;; XXX: Ignore this test for now, which requires tzdata-2023c.
+                (("exit 1")
+                 "exit 0")))))))
+    (native-inputs (list autoconf
+                         autoconf-archive
+                         automake
+                         dconf
+                         (list glib "bin")
+                         intltool
+                         gtk-doc/stable
+                         libtool
+                         mate-common
+                         which
+                         pkg-config))
+    (inputs (list gtk+ tzdata-for-tests))
+    (propagated-inputs
+     ;; both of these are requires.private in mateweather.pc
+     (list libsoup-minimal-2 libxml2))
+    (home-page "https://mate-desktop.org/")
+    (synopsis "MATE library for weather information from the Internet")
+    (description
+     "This library provides access to weather information from the internet
+for the MATE desktop environment.")
+    (license license:lgpl2.1+)))
+
 (define-public mate-extra
   (package
     (inherit mate)
