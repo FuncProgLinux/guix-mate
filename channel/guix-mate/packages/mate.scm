@@ -653,6 +653,8 @@ for the MATE desktop environment.")
                          (replace "libmateweather" libmateweather-1.28.1)
                          (replace "mate-settings-daemon"
                                   mate-settings-daemon-1.28.0-1)
+                         (replace "mate-notification-daemon"
+                                  mate-notification-daemon-1.28.5)
                          (replace "mate-media" mate-media-1.28.1-1)
                          (replace "mate-control-center"
                                   mate-control-center-1.28.0-1)
