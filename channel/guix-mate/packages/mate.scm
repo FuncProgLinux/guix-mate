@@ -600,6 +600,7 @@ for the MATE desktop environment.")
                          (replace "mate-menus" mate-menus-1.28.0-1)
                          (replace "mate-power-manager"
                                   mate-power-manager-1.28.1-1)
+                         (replace "libmateweather" libmateweather-1.28.1)
                          (replace "mate-settings-daemon"
                                   mate-settings-daemon-1.28.0-1)
                          (replace "mate-media" mate-media-1.28.1-1)
