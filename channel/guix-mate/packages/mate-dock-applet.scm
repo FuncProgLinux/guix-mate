@@ -19,7 +19,8 @@
   #:use-module (gnu packages python-xyz)
   #:use-module ((guix licenses)
                 #:prefix license:)
-  #:use-module (gnu packages))
+  #:use-module (gnu packages)
+  #:use-module (guix-mate packages ubuntu))
 
 (define-public mate-dock-applet
   (package
@@ -53,6 +54,7 @@
                      ("gobject-introspection" ,gobject-introspection)
                      ("python-wrapper" ,python-wrapper)))
     (inputs (list gtk+
+                  bamf
                   mate-panel
                   libnotify
                   libwnck
