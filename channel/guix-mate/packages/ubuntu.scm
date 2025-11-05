@@ -1,4 +1,4 @@
-(define-module (guix-mate packages ayatana)
+(define-module (guix-mate packages ubuntu)
   #:use-module ((guix licenses)
                 #:prefix license:)
   #:use-module (guix build-system glib-or-gtk)
@@ -12,13 +12,18 @@
   #:use-module (guix utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages attr)
+  #:use-module (gnu packages autotools)
+  #:use-module (gnu packages base)
   #:use-module (gnu packages code)
   #:use-module (gnu packages dotnet)
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages cmake)
   #:use-module (gnu packages gnome)
-  #:use-module (gnu packages pkg-config))
+  #:use-module (gnu packages pkg-config)
+  #:use-module (gnu packages python)
+  #:use-module (gnu packages xml)
+  #:use-module (gnu packages xorg))
 
 (define-public ayatana-ido
   (package
@@ -90,3 +95,51 @@ Ayatana System Indicators. This is a base dependency for all indicators.")
     (synopsis "Ayatana Indicators Shared Library")
     (description "Ayatana Indicators shared library built with ayatana-ido")
     (license license:gpl3+)))
+
+(define-public bamf
+  (package
+    (name "bamf")
+    (version "0.5.6")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://git.launchpad.net/~unity-team/bamf")
+             (commit version)
+             (recursive? #t)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0x014c4m29ld9aq5xdmydyacc01c3ggr2qz6m8ygb343rccvckzd"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list "--enable-headless-tests" "--enable-gtk-doc")
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'unpack 'patch-makefiles
+            (lambda _
+              ;; Guix doesn't use soystemd. Patch out the ayatana service.
+              ;; TODO: Provide a Shepherd service instead!
+              (substitute* "data/Makefile.am"
+                (("/usr/lib/")
+                 (string-append #$output "/lib/"))))))))
+    (native-inputs (list autoconf
+                         autoconf-archive
+                         automake
+                         gnome-common
+                         gobject-introspection
+                         gtk-doc/stable
+                         libtool
+                         python-lxml
+                         pkg-config
+                         vala
+                         which
+                         python-wrapper
+                         xorg-server-for-tests))
+    (inputs (list glib libgtop libwnck))
+    (home-page "https://launchpad.net/bamf")
+    (synopsis "Application matching framework from Ubuntu")
+    (description "Removes the headache of applications matching into a simple
+DBus daemon and a C wrapper library")
+    (license license:lgpl3)))
