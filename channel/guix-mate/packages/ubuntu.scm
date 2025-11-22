@@ -77,7 +77,6 @@ Ayatana System Indicators. This is a base dependency for all indicators.")
      (list
       #:tests? #f
       #:validate-runpath? #f
-      ;; #:out-of-source? #t
       #:imported-modules `(,@%cmake-build-system-modules (guix build
                                                           glib-or-gtk-build-system))
       #:configure-flags
