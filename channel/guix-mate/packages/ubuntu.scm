@@ -96,6 +96,44 @@ Ayatana System Indicators. This is a base dependency for all indicators.")
     (description "Ayatana Indicators shared library built with ayatana-ido")
     (license license:gpl3+)))
 
+(define-public libayatana-appindicator
+  (package
+    (name "libayatana-appindicator")
+    (version "0.5.94")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url
+              "https://github.com/AyatanaIndicators/libayatana-appindicator")
+             (commit version)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "1di9blgqv5iaq0yjam0j1mnzhjqg23gdbmgmrak8hv0j5xwnnbxj"))))
+    (build-system cmake-build-system)
+    (arguments
+     (list
+      #:tests? #f
+      #:validate-runpath? #f
+      #:imported-modules `(,@%cmake-build-system-modules (guix build
+                                                          glib-or-gtk-build-system))
+      #:configure-flags
+      #~(list "-DENABLE_BINDINGS_MONO=False")
+      #:modules '((guix build cmake-build-system)
+                  ((guix build glib-or-gtk-build-system)
+                   #:prefix glib-or-gtk:)
+                  (guix build utils))))
+    (native-inputs (list cmake gobject-introspection pkg-config gtk-doc/stable
+                         vala))
+    (inputs (list gtk+
+                  (list glib "bin")))
+    (propagated-inputs (list libayatana-indicator libdbusmenu))
+    (home-page "https://github.com/AyatanaIndicators/libayatana-appindicator")
+    (synopsis "Ayatana AppIndicators shared library")
+    (description
+     "Ayatana indicators shared library built with libayatana-indicator and libdbusmenu")
+    (license license:gpl3+)))
+
 (define-public bamf
   (package
     (name "bamf")
