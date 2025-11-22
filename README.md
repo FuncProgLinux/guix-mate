@@ -18,6 +18,17 @@ Return to the comfy _traditional_ desktop everyone loved in the 2000's.
 Refer to this repository
 [wiki](https://codeberg.org/guix-mate/guix-mate/wiki/Home.md) for more details.
 
+> [!IMPORTANT]
+> Starting from December 1st 2025 this channel won't be contributing packages
+> back to Guix `master` branch. There's no intetest in upstream for this
+> particular Desktop Environment and as long as I have a working installation
+> using this channel I will keep maintaining it.
+>
+> For people who don't use my channel, I don't make the rules.
+> Guix decided to neglect this particular desktop. It's a "consequence" not a
+> punishment. I want to say I'm sorry but I'm really not, I already got a working
+> desktop of my own so...yeah.
+
 ## Credits
 
 This channel takes bits & pieces from other libre software projects:
