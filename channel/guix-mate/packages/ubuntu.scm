@@ -25,6 +25,34 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg))
 
+;; Lomiri Packages
+(define-public cmake-extras
+  (package
+    (name "cmake-extras")
+    (version "1.9")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://gitlab.com/ubports/development/core/cmake-extras")
+             (commit "1.9")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0mnxs1j992c3hck5imra3cbb0h2x65m4xnf3vnyr3dlxci1jxlpd"))))
+    (build-system cmake-build-system)
+    (arguments
+     (list
+      ;; no test suite is present
+      #:tests? #f))
+    (native-inputs (list cmake))
+    (inputs (list qtbase))
+    (home-page "https://gitlab.com/ubports/development/core/cmake-extras")
+    (synopsis "Collection of add-ons for the CMake build tool")
+    (description
+     "Lomiri addons for CMake. Needed to build ayatana indicators.")
+    (license license:gpl3)))
+
+;; Ayatana Packages
 (define-public ayatana-ido
   (package
     (name "ayatana-ido")
