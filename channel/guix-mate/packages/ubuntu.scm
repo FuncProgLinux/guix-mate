@@ -243,3 +243,57 @@ Ayatana System Indicators. This is a base dependency for all indicators.")
     (description "Removes the headache of applications matching into a simple
 DBus daemon and a C wrapper library")
     (license license:lgpl3)))
+
+(define-public plank
+  (package
+    (name "plank")
+    (version "0.11.89")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://git.launchpad.net/plank")
+             (commit version)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0rshlcxkxy39q7m7wv3m4n4y8gbwkaxs2pkq39zah49r3ysiayf7"))))
+    (build-system glib-or-gtk-build-system)
+    (arguments
+     (list
+      #:make-flags
+      #~(list "GETTEXT_MACRO_VERSION = 0.22"
+              (string-append "INTROSPECTION_GIRDIR="
+                             #$output "/share/gir-1.0/")
+              (string-append "INTROSPECTION_TYPELIBDIR="
+                             #$output "/lib/girepository-1.0"))
+      ;; Tests require a running xserver
+      #:tests? #f))
+    (native-inputs (list autoconf
+                         autoconf-archive
+                         automake
+                         gettext-minimal
+                         gnulib
+                         libtool
+                         libxml2
+                         pkg-config
+                         vala))
+    (inputs (list at-spi2-core
+                  bamf
+                  cairo
+                  gdk-pixbuf
+                  (list glib "bin")
+                  gnome-menus
+                  dconf
+                  gtk+
+                  libx11
+                  libxfixes
+                  libxi
+                  libdbusmenu
+                  libgee
+                  libwnck
+                  pango))
+    (home-page "https://launchpad.net/plank")
+    (synopsis "Stupidly simple Dock.")
+    (description
+     "Plank is a simple Dock application for various GTK Desktops.")
+    (license license:gpl3)))
