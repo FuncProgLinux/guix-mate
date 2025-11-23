@@ -133,6 +133,40 @@ Ayatana System Indicators. This is a base dependency for all indicators.")
      "Ayatana indicators shared library built with libayatana-indicator and libdbusmenu")
     (license license:gpl3+)))
 
+(define-public libayatana-common
+  (package
+    (name "libayatana-common")
+    (version "0.9.11")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/AyatanaIndicators/libayatana-common")
+             (commit version)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0hlpm1xrjbkkyzj1wx29467fz06pv3rqdz7w6vpnjs263js5m5x3"))))
+    (build-system cmake-build-system)
+    (arguments
+     (list
+      #:configure-flags
+      #~(list "-DGSETTINGS_LOCALINSTALL=True" "-DGSETTINGS_COMPILE=True")
+      #:imported-modules `(,@%cmake-build-system-modules (guix build
+                                                          glib-or-gtk-build-system))
+      #:modules '((guix build cmake-build-system)
+                  ((guix build glib-or-gtk-build-system)
+                   #:prefix glib-or-gtk:)
+                  (guix build utils))
+      #:tests? #f))
+    (native-inputs (list cmake gobject-introspection intltool pkg-config vala))
+    (inputs (list cmake-extras gsettings-desktop-schemas
+                  (list glib "bin")))
+    (home-page "https://github.com/AyatanaIndicators/libayatana-common")
+    (synopsis "Common functions for Ayatana System Indicators")
+    (description
+     "Shared Library for common functions required by the Ayatana System Indicators")
+    (license license:gpl3)))
+
 (define-public bamf
   (package
     (name "bamf")
